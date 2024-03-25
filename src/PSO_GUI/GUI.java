@@ -1,3 +1,6 @@
+//Klasa i layout aplikacji-Tymoteusz
+//Listenery-Kacper
+
 package PSO_GUI;
 
 import javax.swing.*;
@@ -20,7 +23,7 @@ public class GUI extends JFrame{
     //left
     private TitledBorder paramsTitle;
     private JTextField par1, par2, par3;
-    private JButton runSim, buttonImmitatingJMenuItem;
+    private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem;
 
     public GUI() throws HeadlessException{
         this.setSize(900,WINDOW_HEIGHT);
@@ -41,7 +44,7 @@ public class GUI extends JFrame{
                 fileSelectionDialog.loadFile(GUI.this);
             }
         });
-        menuItem2 = new JMenuItem("menuItem2");
+        menuItem2 = new JMenuItem("Save File");
         menuItem2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,7 +71,7 @@ public class GUI extends JFrame{
                 ShowLanguageDialog.showLanguageDialog(GUI.this);
             }
         });
-        menuItem5 = new JMenuItem("menuItem5");
+        menuItem5 = new JMenuItem("Display Settings");
         menuItem5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,7 +106,7 @@ public class GUI extends JFrame{
 
         //Left panel
         leftPanel = new JPanel();
-        leftPanel.setPreferredSize(new Dimension(this.getWidth()/8, WINDOW_HEIGHT));
+        leftPanel.setPreferredSize(new Dimension(this.getWidth()/7, WINDOW_HEIGHT));
 //        leftPanel.setLayout(new GridLayout(3,1));
         leftPanel.setLayout(null);
         paramsTitle = BorderFactory.createTitledBorder("Parametry");
@@ -115,11 +118,26 @@ public class GUI extends JFrame{
         par3 = new JTextField("Parametr 3");
         par3.setBounds(5,150 + leftPanel.getHeight()/2, 100,20);
 
-        runSim = new JButton("Run");
-        runSim.setBounds(5, 475, 100, 40);
+        runSim = new JButton("Run Simulation");
+        runSim.setBounds(5, 435, 120, 40);
+
+        stopSim = new JButton("Stop Simulation");
+        stopSim.setBounds(5, 475, 120, 40);
+
+        choosePreset = new JButton("Choose Preset");
+        choosePreset.setBounds(5, 395, 120, 40);
+
+        choosePreset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowChoosePresetDialog.showChoosePresetDialog(GUI.this);
+            }
+        });
 
 
         leftPanel.add(runSim);
+        leftPanel.add(stopSim);
+        leftPanel.add(choosePreset);
         leftPanel.add(par1);
         leftPanel.add(par2);
         leftPanel.add(par3);
