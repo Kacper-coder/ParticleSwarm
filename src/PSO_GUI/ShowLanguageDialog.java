@@ -1,3 +1,4 @@
+
 //Kacper & Tymoteusz
 package PSO_GUI;
 
@@ -15,6 +16,7 @@ public class ShowLanguageDialog {
 
         String selectedLanguage = (String) JOptionPane.showInputDialog(parentComponent,
                 LanguageManager.getMessage("lang_prompt"), LanguageManager.getMessage("lang_settings"),
+
                 JOptionPane.PLAIN_MESSAGE, null,
                 languages, languages[0]);
 

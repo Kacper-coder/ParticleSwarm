@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class GUI extends JFrame{
 
@@ -75,7 +76,11 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 LoadFile fileSelectionDialog = new LoadFile();
-                fileSelectionDialog.loadFile(GUI.this);
+                try {
+                    fileSelectionDialog.loadFile(GUI.this);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
             menuItem2 = new JMenuItem(LanguageManager.getMessage("save_file"));
@@ -96,6 +101,7 @@ public class GUI extends JFrame{
         fileMenu.add(menuItem2);
         fileMenu.add(menuItem3);
         menuBar.add(fileMenu);
+
 
         settingsMenu = new JMenu(LanguageManager.getMessage("settings"));
         menuItem4 = new JMenuItem(LanguageManager.getMessage("lang_settings"));
