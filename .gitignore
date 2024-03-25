@@ -2,6 +2,8 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+/.idea
+/PS-Project.iml
 
 ### Eclipse ###
 .apt_generated
