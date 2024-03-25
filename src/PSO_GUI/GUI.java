@@ -20,7 +20,7 @@ public class GUI extends JFrame{
     //left
     private TitledBorder paramsTitle;
     private JTextField par1, par2, par3;
-    private JButton runSim;
+    private JButton runSim, buttonImmitatingJMenuItem;
 
     public GUI() throws HeadlessException{
         this.setSize(900,WINDOW_HEIGHT);
@@ -33,11 +33,12 @@ public class GUI extends JFrame{
         //menu
         menuBar = new JMenuBar();
         fileMenu = new JMenu("File");
-        menuItem1 = new JMenuItem("menuItem1");
+        menuItem1 = new JMenuItem("Load File");
         menuItem1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //nic
+                LoadFile fileSelectionDialog = new LoadFile();
+                fileSelectionDialog.loadFile(GUI.this);
             }
         });
         menuItem2 = new JMenuItem("menuItem2");
@@ -60,11 +61,11 @@ public class GUI extends JFrame{
         menuBar.add(fileMenu);
 
         settingsMenu = new JMenu("Settings");
-        menuItem4 = new JMenuItem("menuItem4");
+        menuItem4 = new JMenuItem("Language Settings");
         menuItem4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //nic
+                ShowLanguageDialog.showLanguageDialog(GUI.this);
             }
         });
         menuItem5 = new JMenuItem("menuItem5");
@@ -86,6 +87,19 @@ public class GUI extends JFrame{
         settingsMenu.add(menuItem6);
         menuBar.add(settingsMenu);
         this.setJMenuBar(menuBar);
+
+        //Przycisk "Help" imitujący obiekt typu JMenuItem, który po kliknięciu przekeirowywuje użytkownika do
+        //strony GitHub do pliku READ_ME.txt
+        buttonImmitatingJMenuItem = new JButton("Help");
+        buttonImmitatingJMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowHtmlMessageDialog help = new ShowHtmlMessageDialog();
+                help.showHtmlMessageDialog("HELP", "<html>If you encountered any trouble using the program, read through documentation available on <br><a href=\"https://github.com/Kacper-coder/ParticleSwarm\">GitHub</a></html>");
+            }
+        });
+        buttonImmitatingJMenuItem.setContentAreaFilled(false);
+        menuBar.add(buttonImmitatingJMenuItem);
 
         //Left panel
         leftPanel = new JPanel();
