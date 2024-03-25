@@ -33,6 +33,7 @@ public class GUI extends JFrame{
     private JSlider sliderVel, sliderForce, sliderIntelligence;
     private JCheckBox checkBoxMode;
 
+    private JTextField par1, par2, par3;
 
     public GUI() throws HeadlessException{
         this.setSize(1100,WINDOW_HEIGHT);
@@ -162,7 +163,6 @@ public class GUI extends JFrame{
         checkBoxMode.setBounds(5, 260+leftPanel.getHeight()/2, 150,20);
         leftPanel.add(checkBoxMode);
 
-        //here2
         labelAlfa = new JLabel("α:");
         labelAlfa.setBounds(15, 465, 60, 20);
         labelBeta = new JLabel("β:");
@@ -173,6 +173,7 @@ public class GUI extends JFrame{
         sliderIntelligence.setMajorTickSpacing(20);
         sliderIntelligence.setMinorTickSpacing(5);
         sliderIntelligence.setPaintTicks(true);
+
         sliderIntelligence.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -183,9 +184,6 @@ public class GUI extends JFrame{
                 labelBeta.setText("β:"+(100-value)/100);
             }
         });
-        leftPanel.add(sliderIntelligence);
-        leftPanel.add(labelAlfa);
-        leftPanel.add(labelBeta);
 
         runSim = new JButton("Run Simulation");
         runSim.setBounds(10, 535, 160, 40);
@@ -207,6 +205,9 @@ public class GUI extends JFrame{
         leftPanel.add(runSim);
         leftPanel.add(stopSim);
         leftPanel.add(choosePreset);
+        leftPanel.add(sliderIntelligence);
+        leftPanel.add(labelAlfa);
+        leftPanel.add(labelBeta);
         leftPanel.add(swarmSizeText);
         leftPanel.add(maxForceText);
         leftPanel.add(maxVelText);
