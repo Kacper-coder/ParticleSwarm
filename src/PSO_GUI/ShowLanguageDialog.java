@@ -1,4 +1,6 @@
+//Kacper
 package PSO_GUI;
+
 
 import javax.swing.*;
 import java.awt.*;

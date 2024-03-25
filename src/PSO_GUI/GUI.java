@@ -116,6 +116,7 @@ public class GUI extends JFrame{
 
         //Left panel
         leftPanel = new JPanel();
+
         leftPanel.setPreferredSize(new Dimension(this.getWidth()/4, WINDOW_HEIGHT));
 //        leftPanel.setLayout(new GridLayout(3,1));
         leftPanel.setLayout(null);
@@ -126,6 +127,7 @@ public class GUI extends JFrame{
         maxForceText.setBounds(180,100+leftPanel.getHeight()/2, 50,20);
         maxVelText = new JTextField("vmax");
         maxVelText.setBounds(180,200+leftPanel.getHeight()/2, 50,20);
+
 
         //here
         labelSwarmSize = new JLabel("Liczebność roju: ");
@@ -211,6 +213,11 @@ public class GUI extends JFrame{
         leftPanel.add(swarmSizeText);
         leftPanel.add(maxForceText);
         leftPanel.add(maxVelText);
+
+        leftPanel.add(par1);
+        leftPanel.add(par2);
+        leftPanel.add(par3);
+
         leftPanel.setBorder(paramsTitle);
         this.add(leftPanel, BorderLayout.LINE_START);
 
