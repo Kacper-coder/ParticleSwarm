@@ -5,6 +5,8 @@ package PSO_GUI;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +26,8 @@ public class GUI extends JFrame{
     private TitledBorder paramsTitle;
     private JTextField par1, par2, par3;
     private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem;
+    private JSlider sliderIntelligence;
+    private JLabel labelAlfa, labelBeta;
 
     public GUI() throws HeadlessException{
         this.setSize(900,WINDOW_HEIGHT);
@@ -106,17 +110,40 @@ public class GUI extends JFrame{
 
         //Left panel
         leftPanel = new JPanel();
-        leftPanel.setPreferredSize(new Dimension(this.getWidth()/7, WINDOW_HEIGHT));
+        leftPanel.setPreferredSize(new Dimension(this.getWidth()/4, WINDOW_HEIGHT));
 //        leftPanel.setLayout(new GridLayout(3,1));
         leftPanel.setLayout(null);
         paramsTitle = BorderFactory.createTitledBorder("Parametry");
-        par1 = new JTextField("Parametr 1");
+        par1 = new JTextField("Liczebność roju");
         par1.setBounds(5,50+leftPanel.getHeight()/2, 100,20);
         //par1.setBounds(50,50,20,10);
         par2 = new JTextField("Parametr 2");
         par2.setBounds(5,100+leftPanel.getHeight()/2, 100,20);
         par3 = new JTextField("Parametr 3");
         par3.setBounds(5,150 + leftPanel.getHeight()/2, 100,20);
+
+        labelAlfa = new JLabel("α:");
+        labelAlfa.setBounds(15, 370, 60, 20);
+        labelBeta = new JLabel("β:");
+        labelBeta.setBounds(70, 370, 60, 20);
+
+        sliderIntelligence=new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+        sliderIntelligence.setBounds(0, 320, 225,50);
+        sliderIntelligence.setMajorTickSpacing(20);
+        sliderIntelligence.setMinorTickSpacing(5);
+        sliderIntelligence.setPaintTicks(true);
+        sliderIntelligence.setPaintLabels(true);
+        sliderIntelligence.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JSlider slider = (JSlider) e.getSource();
+                double value = slider.getValue();
+
+                labelAlfa.setText("α:"+value/100);
+                labelBeta.setText("β:"+(100-value)/100);
+            }
+        });
+
 
         runSim = new JButton("Run Simulation");
         runSim.setBounds(5, 435, 120, 40);
@@ -138,6 +165,9 @@ public class GUI extends JFrame{
         leftPanel.add(runSim);
         leftPanel.add(stopSim);
         leftPanel.add(choosePreset);
+        leftPanel.add(sliderIntelligence);
+        leftPanel.add(labelAlfa);
+        leftPanel.add(labelBeta);
         leftPanel.add(par1);
         leftPanel.add(par2);
         leftPanel.add(par3);
