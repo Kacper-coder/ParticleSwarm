@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 public class GUI extends JFrame{
 
-    private static final int WINDOW_HEIGHT = 600;
+    private static final int WINDOW_HEIGHT = 700;
     //menu
     private JMenu fileMenu, settingsMenu;
     private JMenuBar menuBar;
@@ -26,7 +26,7 @@ public class GUI extends JFrame{
     private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem;
 
     public GUI() throws HeadlessException{
-        this.setSize(900,WINDOW_HEIGHT);
+        this.setSize(1100,WINDOW_HEIGHT);
         this.setTitle("PSO_GUI");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
@@ -106,11 +106,11 @@ public class GUI extends JFrame{
 
         //Left panel
         leftPanel = new JPanel();
-        leftPanel.setPreferredSize(new Dimension(this.getWidth()/7, WINDOW_HEIGHT));
+        leftPanel.setPreferredSize(new Dimension(this.getWidth()/4, WINDOW_HEIGHT));
 //        leftPanel.setLayout(new GridLayout(3,1));
         leftPanel.setLayout(null);
         paramsTitle = BorderFactory.createTitledBorder("Parametry");
-        par1 = new JTextField("Parametr 1");
+        par1 = new JTextField("Liczebność roju");
         par1.setBounds(5,50+leftPanel.getHeight()/2, 100,20);
         //par1.setBounds(50,50,20,10);
         par2 = new JTextField("Parametr 2");
@@ -119,13 +119,13 @@ public class GUI extends JFrame{
         par3.setBounds(5,150 + leftPanel.getHeight()/2, 100,20);
 
         runSim = new JButton("Run Simulation");
-        runSim.setBounds(5, 435, 120, 40);
+        runSim.setBounds(10, 535, 160, 40);
 
         stopSim = new JButton("Stop Simulation");
-        stopSim.setBounds(5, 475, 120, 40);
+        stopSim.setBounds(10, 575, 160, 40);
 
         choosePreset = new JButton("Choose Preset");
-        choosePreset.setBounds(5, 395, 120, 40);
+        choosePreset.setBounds(10, 495, 160, 40);
 
         choosePreset.addActionListener(new ActionListener() {
             @Override
