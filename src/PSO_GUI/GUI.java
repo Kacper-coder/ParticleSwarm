@@ -5,6 +5,8 @@ package PSO_GUI;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,8 +29,8 @@ public class GUI extends JFrame{
     private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem;
 
     //here
-    private JLabel labelVel, labelForce, labelSwarmSize;
-    private JSlider sliderVel, sliderForce;
+    private JLabel labelVel, labelForce, labelSwarmSize, labelAlfa, labelBeta;
+    private JSlider sliderVel, sliderForce, sliderIntelligence;
     private JCheckBox checkBoxMode;
 
 
@@ -160,6 +162,30 @@ public class GUI extends JFrame{
         checkBoxMode.setBounds(5, 260+leftPanel.getHeight()/2, 150,20);
         leftPanel.add(checkBoxMode);
 
+        //here2
+        labelAlfa = new JLabel("α:");
+        labelAlfa.setBounds(15, 465, 60, 20);
+        labelBeta = new JLabel("β:");
+        labelBeta.setBounds(70, 465, 60, 20);
+
+        sliderIntelligence=new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+        sliderIntelligence.setBounds(0, 410, 270,50);
+        sliderIntelligence.setMajorTickSpacing(20);
+        sliderIntelligence.setMinorTickSpacing(5);
+        sliderIntelligence.setPaintTicks(true);
+        sliderIntelligence.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JSlider slider = (JSlider) e.getSource();
+                double value = slider.getValue();
+
+                labelAlfa.setText("α:"+value/100);
+                labelBeta.setText("β:"+(100-value)/100);
+            }
+        });
+        leftPanel.add(sliderIntelligence);
+        leftPanel.add(labelAlfa);
+        leftPanel.add(labelBeta);
 
         runSim = new JButton("Run Simulation");
         runSim.setBounds(10, 535, 160, 40);
