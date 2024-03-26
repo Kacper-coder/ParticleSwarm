@@ -123,12 +123,12 @@ public class GUI extends JFrame{
         par3.setBounds(5,150 + leftPanel.getHeight()/2, 100,20);
 
         labelAlfa = new JLabel("α:");
-        labelAlfa.setBounds(15, 370, 60, 20);
+        labelAlfa.setBounds(15, 465, 60, 20);
         labelBeta = new JLabel("β:");
-        labelBeta.setBounds(70, 370, 60, 20);
+        labelBeta.setBounds(70, 465, 60, 20);
 
         sliderIntelligence=new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
-        sliderIntelligence.setBounds(0, 320, 225,50);
+        sliderIntelligence.setBounds(0, 410, 270,50);
         sliderIntelligence.setMajorTickSpacing(20);
         sliderIntelligence.setMinorTickSpacing(5);
         sliderIntelligence.setPaintTicks(true);
