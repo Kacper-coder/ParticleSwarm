@@ -27,6 +27,8 @@ public class GUI extends JFrame{
     private TitledBorder paramsTitle;
     private JTextField swarmSizeText, maxForceText, maxVelText;
     private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem;
+    private JSlider sliderIntelligence;
+    private JLabel labelAlfa, labelBeta;
 
     //here
     private JLabel labelVel, labelForce, labelSwarmSize, labelAlfa, labelBeta;
@@ -116,11 +118,11 @@ public class GUI extends JFrame{
 
         //Left panel
         leftPanel = new JPanel();
-
         leftPanel.setPreferredSize(new Dimension(this.getWidth()/4, WINDOW_HEIGHT));
 //        leftPanel.setLayout(new GridLayout(3,1));
         leftPanel.setLayout(null);
         paramsTitle = BorderFactory.createTitledBorder("Parametry");
+
         swarmSizeText = new JTextField("Ustaw liczebność roju");
         swarmSizeText.setBounds(125,31+leftPanel.getHeight()/2, 140,20);
         maxForceText = new JTextField("Fmax");
@@ -213,6 +215,7 @@ public class GUI extends JFrame{
         leftPanel.add(swarmSizeText);
         leftPanel.add(maxForceText);
         leftPanel.add(maxVelText);
+
 
         leftPanel.add(par1);
         leftPanel.add(par2);
