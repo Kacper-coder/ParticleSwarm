@@ -159,6 +159,7 @@ public class GUI extends JFrame{
                 }
             }
 
+
             @Override
             public void focusLost(FocusEvent e){
                 if(swarmSizeText.getText().isEmpty()){
@@ -336,8 +337,6 @@ public class GUI extends JFrame{
         leftPanel.add(swarmSizeText);
         leftPanel.add(maxForceText);
         leftPanel.add(maxVelText);
-
-
         leftPanel.setBorder(paramsTitle);
         this.add(leftPanel, BorderLayout.LINE_START);
 
