@@ -217,10 +217,6 @@ public class GUI extends JFrame{
         leftPanel.add(maxVelText);
 
 
-        leftPanel.add(par1);
-        leftPanel.add(par2);
-        leftPanel.add(par3);
-
         leftPanel.setBorder(paramsTitle);
         this.add(leftPanel, BorderLayout.LINE_START);
 
