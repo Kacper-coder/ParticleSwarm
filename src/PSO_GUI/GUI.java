@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 public class GUI extends JFrame{
 
-    private static final int WINDOW_HEIGHT = 600;
+    private static final int WINDOW_HEIGHT = 700;
     //menu
     private JMenu fileMenu, settingsMenu;
     private JMenuBar menuBar;
@@ -30,7 +30,7 @@ public class GUI extends JFrame{
     private JLabel labelAlfa, labelBeta;
 
     public GUI() throws HeadlessException{
-        this.setSize(900,WINDOW_HEIGHT);
+        this.setSize(1100,WINDOW_HEIGHT);
         this.setTitle("PSO_GUI");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
@@ -146,13 +146,13 @@ public class GUI extends JFrame{
 
 
         runSim = new JButton("Run Simulation");
-        runSim.setBounds(5, 435, 120, 40);
+        runSim.setBounds(10, 535, 160, 40);
 
         stopSim = new JButton("Stop Simulation");
-        stopSim.setBounds(5, 475, 120, 40);
+        stopSim.setBounds(10, 575, 160, 40);
 
         choosePreset = new JButton("Choose Preset");
-        choosePreset.setBounds(5, 395, 120, 40);
+        choosePreset.setBounds(10, 495, 160, 40);
 
         choosePreset.addActionListener(new ActionListener() {
             @Override
