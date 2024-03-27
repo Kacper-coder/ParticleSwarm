@@ -27,8 +27,6 @@ public class GUI extends JFrame{
     private TitledBorder paramsTitle;
     private JTextField swarmSizeText, maxForceText, maxVelText;
     private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem;
-    private JSlider sliderIntelligence;
-    private JLabel labelAlfa, labelBeta;
 
     //here
     private JLabel labelVel, labelForce, labelSwarmSize, labelAlfa, labelBeta;
