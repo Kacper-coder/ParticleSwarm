@@ -63,16 +63,16 @@ public class GUI extends JFrame{
                 //nic
             }
         });
-//        menuItem3 = new JMenuItem("menuItem3");
-//        menuItem3.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                //nic
-//            }
-//        });
+        menuItem3 = new JMenuItem("Exit");
+        menuItem3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
         fileMenu.add(menuItem1);
         fileMenu.add(menuItem2);
-//        fileMenu.add(menuItem3);
+        fileMenu.add(menuItem3);
         menuBar.add(fileMenu);
 
         settingsMenu = new JMenu("Settings");
@@ -168,12 +168,12 @@ public class GUI extends JFrame{
         leftPanel.add(checkBoxMode);
 
         labelAlfa = new JLabel("α:");
-        labelAlfa.setBounds(15, 465, 60, 20);
+        labelAlfa.setBounds(15, 365+leftPanel.getHeight()/2, 60, 20);
         labelBeta = new JLabel("β:");
-        labelBeta.setBounds(70, 465, 60, 20);
+        labelBeta.setBounds(70, 365+leftPanel.getHeight()/2, 60, 20);
 
         sliderIntelligence=new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
-        sliderIntelligence.setBounds(0, 410, 270,50);
+        sliderIntelligence.setBounds(0, 310+leftPanel.getHeight()/2, 270,50);
         sliderIntelligence.setMajorTickSpacing(20);
         sliderIntelligence.setMinorTickSpacing(5);
         sliderIntelligence.setPaintTicks(true);
