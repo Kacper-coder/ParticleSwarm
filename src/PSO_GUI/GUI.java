@@ -10,6 +10,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.beans.JavaBean;
 
 public class GUI extends JFrame{
@@ -122,6 +124,21 @@ public class GUI extends JFrame{
         paramsTitle = BorderFactory.createTitledBorder("Parametry");
 
         swarmSizeText = new JTextField("Ustaw liczebność roju");
+        swarmSizeText.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if(swarmSizeText.getText().equals("Ustaw liczebność roju")){
+                    swarmSizeText.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e){
+                if(swarmSizeText.getText().isEmpty()){
+                    swarmSizeText.setText("Ustaw liczebność roju");
+                }
+            }
+        });
         swarmSizeText.setBounds(125,31+leftPanel.getHeight()/2, 140,20);
         maxForceText = new JTextField("Fmax");
         maxForceText.setBounds(180,100+leftPanel.getHeight()/2, 50,20);
@@ -145,6 +162,12 @@ public class GUI extends JFrame{
 
 
         sliderForce = new JSlider(JSlider.HORIZONTAL, 0, 50, 0);
+        sliderForce.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                maxForceText.setText(Integer.toString(sliderForce.getValue()));
+            }
+        });
         sliderForce.setMinorTickSpacing(1);
         sliderForce.setMajorTickSpacing(10);
         sliderForce.setPaintTicks(true);
@@ -153,6 +176,12 @@ public class GUI extends JFrame{
         leftPanel.add(sliderForce);
 
         sliderVel = new JSlider(JSlider.HORIZONTAL, 0, 50, 0);
+        sliderVel.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                maxVelText.setText(Integer.toString(sliderVel.getValue()));
+            }
+        });
         sliderVel.setMinorTickSpacing(1);
         sliderVel.setMajorTickSpacing(10);
         sliderVel.setPaintTicks(true);
