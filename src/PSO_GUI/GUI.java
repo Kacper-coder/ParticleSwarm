@@ -23,7 +23,12 @@ public class GUI extends JFrame{
     private JMenuItem menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, menuItem6;
 
     //panels
-    private static JPanel topPanel, leftPanel, rightPanel, centerPanel;
+    private static JPanel topPanel, leftPanel, centerPanel;
+
+    //początek zmian
+    private Function function;
+    private static FunctionPanel rightPanel;
+    //koniec zmian
 
     //left
     private TitledBorder paramsTitle;
@@ -251,12 +256,22 @@ public class GUI extends JFrame{
         centerPanel = new JPanel();
         this.add(centerPanel, BorderLayout.CENTER);
         centerPanel.setBackground(Color.gray);
+        centerPanel.setLayout(new GridLayout(1,1));
 
         //Top panel
         topPanel = new JPanel();
         topPanel.setLayout(new FlowLayout());
         this.add(topPanel,BorderLayout.NORTH);
 
+        //Right panel
+        Function function = new Function(600, 600, Function.FunctionType.BEALE); //tylko tymczasowo, będzie brane z dropDown menu
+        rightPanel = new FunctionPanel(function.getBufferedImage());
+//        rightPanel.setBounds(,300,400,400);
+        rightPanel.setBounds(0,0,600,600);
+//        rightPanel.setBackground(Color.gray);
+        centerPanel.add(rightPanel);
+
+        System.out.println(rightPanel.getSize());
     }
 
     public static void main(String[] args){
