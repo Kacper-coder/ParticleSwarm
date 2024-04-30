@@ -11,12 +11,12 @@ public class ShowChoosePresetDialog {
         String[] languages = {"Funkcja1", "Funkcja2", "Funkcja3","Funkcja4","Funkcja5"};
 
         String selectedLanguage = (String) JOptionPane.showInputDialog(parentComponent,
-                "Choose function:", "Choose Preset",
+                LanguageManager.getMessage("function"), LanguageManager.getMessage("preset"),
                 JOptionPane.PLAIN_MESSAGE, null,
                 languages, languages[0]);
 
         if (selectedLanguage != null) {
-            JOptionPane.showMessageDialog(parentComponent, "Chosen function: " + selectedLanguage);
+            JOptionPane.showMessageDialog(parentComponent, LanguageManager.getMessage("function_prompt")+ selectedLanguage);
         }
     }
 }

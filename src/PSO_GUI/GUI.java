@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.beans.JavaBean;
 
 public class GUI extends JFrame{
 
@@ -20,15 +19,13 @@ public class GUI extends JFrame{
     //menu
     private JMenu fileMenu, settingsMenu;
     private JMenuBar menuBar;
-    private JMenuItem menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, menuItem6;
+    private JMenuItem menuItem1, menuItem2, menuItem3, menuItem4, menuItem5;
 
     //panels
     private static JPanel topPanel, leftPanel, centerPanel;
 
-    //początek zmian
     private Function function;
     private static FunctionPanel rightPanel;
-    //koniec zmian
 
     //left
     private TitledBorder paramsTitle;
@@ -42,6 +39,26 @@ public class GUI extends JFrame{
 
     private JTextField par1, par2, par3;
 
+    //do zmiany języków
+    public void rebuildUI(){
+        paramsTitle.setTitle(LanguageManager.getMessage("parameters"));
+        fileMenu.setText(LanguageManager.getMessage("file"));
+        menuItem1.setText(LanguageManager.getMessage("load_file"));
+        menuItem2.setText(LanguageManager.getMessage("save_file"));
+        menuItem3.setText(LanguageManager.getMessage("exit"));
+        settingsMenu.setText(LanguageManager.getMessage("settings"));
+        menuItem4.setText(LanguageManager.getMessage("lang_settings"));
+        menuItem5.setText(LanguageManager.getMessage("display_settings"));
+        buttonImmitatingJMenuItem.setText(LanguageManager.getMessage("help"));
+        swarmSizeText.setText(LanguageManager.getMessage("swarm_size_field"));
+        labelSwarmSize.setText(LanguageManager.getMessage("swarm_size"));
+        labelForce.setText(LanguageManager.getMessage("max_force"));
+        labelVel.setText(LanguageManager.getMessage("max_vel"));
+        runSim.setText(LanguageManager.getMessage("run"));
+        stopSim.setText(LanguageManager.getMessage("stop"));
+        choosePreset.setText(LanguageManager.getMessage("preset"));
+    }
+
     public GUI() throws HeadlessException{
         this.setSize(1100,WINDOW_HEIGHT);
         this.setTitle("PSO_GUI");
@@ -52,8 +69,8 @@ public class GUI extends JFrame{
 
         //menu
         menuBar = new JMenuBar();
-        fileMenu = new JMenu("File");
-        menuItem1 = new JMenuItem("Load File");
+        fileMenu = new JMenu(LanguageManager.getMessage("file"));
+        menuItem1 = new JMenuItem(LanguageManager.getMessage("load_file"));
         menuItem1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,14 +78,14 @@ public class GUI extends JFrame{
                 fileSelectionDialog.loadFile(GUI.this);
             }
         });
-        menuItem2 = new JMenuItem("Save File");
+        menuItem2 = new JMenuItem(LanguageManager.getMessage("save_file"));
         menuItem2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //nic
             }
         });
-        menuItem3 = new JMenuItem("Exit");
+        menuItem3 = new JMenuItem(LanguageManager.getMessage("exit"));
         menuItem3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,42 +97,41 @@ public class GUI extends JFrame{
         fileMenu.add(menuItem3);
         menuBar.add(fileMenu);
 
-        settingsMenu = new JMenu("Settings");
-        menuItem4 = new JMenuItem("Language Settings");
+        settingsMenu = new JMenu(LanguageManager.getMessage("settings"));
+        menuItem4 = new JMenuItem(LanguageManager.getMessage("lang_settings"));
         menuItem4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ShowLanguageDialog.showLanguageDialog(GUI.this);
+                if(ShowLanguageDialog.shouldRebuildUI == true){
+//                    fileMenu.setText(LanguageManager.getMessage("file"));
+//                    revalidate();
+//                    repaint();
+                    rebuildUI();
+                }
             }
         });
-        menuItem5 = new JMenuItem("Display Settings");
+        menuItem5 = new JMenuItem(LanguageManager.getMessage("display_settings"));
         menuItem5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //nic
             }
         });
-//        menuItem6 = new JMenuItem("menuItem6");
-//        menuItem6.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                //nic
-//            }
-//        });
+
         settingsMenu.add(menuItem4);
         settingsMenu.add(menuItem5);
-//        settingsMenu.add(menuItem6);
         menuBar.add(settingsMenu);
         this.setJMenuBar(menuBar);
 
-        //Przycisk "Help" imitujący obiekt typu JMenuItem, który po kliknięciu przekeirowywuje użytkownika do
+        //Przycisk "Help" imitujący obiekt typu JMenuItem, który po kliknięciu przekierowuje użytkownika do
         //strony GitHub do pliku READ_ME.txt
-        buttonImmitatingJMenuItem = new JButton("Help");
+        buttonImmitatingJMenuItem = new JButton(LanguageManager.getMessage("help"));
         buttonImmitatingJMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ShowHtmlMessageDialog help = new ShowHtmlMessageDialog();
-                help.showHtmlMessageDialog("HELP", "<html>If you encountered any trouble using the program, read through documentation available on <br><a href=\"https://github.com/Kacper-coder/ParticleSwarm\">GitHub</a></html>");
+                help.showHtmlMessageDialog(LanguageManager.getMessage("help"), LanguageManager.getMessage("help_prompt") + "<html><a href=\"https://github.com/Kacper-coder/ParticleSwarm\">GitHub</a></html>");
             }
         });
         buttonImmitatingJMenuItem.setContentAreaFilled(false);
@@ -126,13 +142,13 @@ public class GUI extends JFrame{
         leftPanel.setPreferredSize(new Dimension(this.getWidth()/4, WINDOW_HEIGHT));
 //        leftPanel.setLayout(new GridLayout(3,1));
         leftPanel.setLayout(null);
-        paramsTitle = BorderFactory.createTitledBorder("Parametry");
+        paramsTitle = BorderFactory.createTitledBorder(LanguageManager.getMessage("parameters"));
 
-        swarmSizeText = new JTextField("Ustaw liczebność roju");
+        swarmSizeText = new JTextField(LanguageManager.getMessage("swarm_size_field"));
         swarmSizeText.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if(swarmSizeText.getText().equals("Ustaw liczebność roju")){
+                if(swarmSizeText.getText().equals(LanguageManager.getMessage("swarm_size_field"))){
                     swarmSizeText.setText("");
                 }
             }
@@ -140,7 +156,7 @@ public class GUI extends JFrame{
             @Override
             public void focusLost(FocusEvent e){
                 if(swarmSizeText.getText().isEmpty()){
-                    swarmSizeText.setText("Ustaw liczebność roju");
+                    swarmSizeText.setText(LanguageManager.getMessage("swarm_size_field"));
                 }
             }
         });
@@ -152,15 +168,15 @@ public class GUI extends JFrame{
 
 
         //here
-        labelSwarmSize = new JLabel("Liczebność roju: ");
+        labelSwarmSize = new JLabel(LanguageManager.getMessage("swarm_size"));
         labelSwarmSize.setBounds(5, 30+leftPanel.getHeight()/2, 140, 20);
         leftPanel.add(labelSwarmSize);
 
-        labelForce = new JLabel("Maksymalna siła sterująca: ");
+        labelForce = new JLabel(LanguageManager.getMessage("max_force"));
         labelForce.setBounds(5, 70+leftPanel.getHeight()/2, 200,20);
         leftPanel.add(labelForce);
 
-        labelVel = new JLabel("Maksymalna prędkość cząstki: ");
+        labelVel = new JLabel(LanguageManager.getMessage("max_vel"));
         labelVel.setBounds(5, 170+leftPanel.getHeight()/2, 220, 20);
         leftPanel.add(labelVel);
 
@@ -221,13 +237,13 @@ public class GUI extends JFrame{
             }
         });
 
-        runSim = new JButton("Run Simulation");
+        runSim = new JButton(LanguageManager.getMessage("run"));
         runSim.setBounds(10, 535, 160, 40);
 
-        stopSim = new JButton("Stop Simulation");
+        stopSim = new JButton(LanguageManager.getMessage("stop"));
         stopSim.setBounds(10, 575, 160, 40);
 
-        choosePreset = new JButton("Choose Preset");
+        choosePreset = new JButton(LanguageManager.getMessage("preset"));
         choosePreset.setBounds(10, 495, 160, 40);
 
         choosePreset.addActionListener(new ActionListener() {
@@ -277,6 +293,7 @@ public class GUI extends JFrame{
     public static void main(String[] args){
         GUI frame = new GUI();
         frame.setVisible(true);
+        LanguageManager.setMainFrame(frame);
 //        System.out.println(leftPanel.getWidth()/2);
     }
 }
