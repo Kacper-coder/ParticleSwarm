@@ -79,7 +79,7 @@ public class GUI extends JFrame{
                 fileSelectionDialog.loadFile(GUI.this);
             }
         });
-        menuItem2 = new JMenuItem(LanguageManager.getMessage("save_file"));
+            menuItem2 = new JMenuItem(LanguageManager.getMessage("save_file"));
         menuItem2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
