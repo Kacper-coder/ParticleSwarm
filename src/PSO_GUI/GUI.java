@@ -285,10 +285,16 @@ public class GUI extends JFrame{
         rightPanel = new FunctionPanel(function.getBufferedImage());
 //        rightPanel.setBounds(,300,400,400);
         rightPanel.setBounds(0,0,600,600);
+
+        //dodanie cząstek - tymczasowe, będą się dodawać chyba dopiero po naciśnięciu przycisku Run simulation
+        for(int i=0; i<40; i++){
+            rightPanel.addParticle(function);
+        }
+
 //        rightPanel.setBackground(Color.gray);
         centerPanel.add(rightPanel);
 
-        System.out.println(rightPanel.getSize());
+//        System.out.println(rightPanel.getSize());
     }
 
     public static void main(String[] args){
