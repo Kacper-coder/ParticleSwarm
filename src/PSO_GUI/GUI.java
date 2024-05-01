@@ -321,7 +321,7 @@ public class GUI extends JFrame{
                 frame.setVisible(true);
                 LanguageManager.setMainFrame(frame);
 
-                for(int i=0; i<40; i++){
+                for(int i=0; i<100; i++){
                     rightPanel.addParticle(function);
                 }
 

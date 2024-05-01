@@ -43,7 +43,6 @@ public class FunctionPanel extends JPanel implements Runnable{
                 p.update();
             }
             repaint();
-            Toolkit.getDefaultToolkit().sync();
 
             for(Particle p : particles){
                 if(GB != null){
@@ -66,8 +65,10 @@ public class FunctionPanel extends JPanel implements Runnable{
 //                window.draw(c);
 //            }
 
+            Toolkit.getDefaultToolkit().sync();
+
             try{
-                Thread.sleep(10);
+                Thread.sleep(1);
             }catch(InterruptedException e){
                 e.printStackTrace();
             }
