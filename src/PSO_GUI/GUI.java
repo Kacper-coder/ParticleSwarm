@@ -291,6 +291,13 @@ public class GUI extends JFrame{
 
 //        rightPanel.setBackground(Color.gray);
         centerPanel.add(rightPanel);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                rightPanel.stop();
+                dispose();
+            }
+        });
 
 //        System.out.println(rightPanel.getSize());
     }
@@ -315,13 +322,6 @@ public class GUI extends JFrame{
 //                FunctionPanel rightPanel = new FunctionPanel(function1.getBufferedImage());
 
                 GUI frame = new GUI();
-                frame.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e){
-                        rightPanel.stop();
-                        frame.dispose();
-                    }
-                });
                 frame.setVisible(true);
                 LanguageManager.setMainFrame(frame);
 
