@@ -27,7 +27,7 @@ public class Particle {
         double x = Utility.remap(pos.x, f.xMin, f.xMax, 0, f.W);
         double y = Utility.remap(pos.y, f.yMin, f.yMax, 0, f.H);
         g.setColor(Color.blue);
-        g.fillOval((int)x, (int)y, 10, 10);
+        g.fillOval((int)x, (int)y, 7, 7);
     }
 
     public void update(){
@@ -35,6 +35,7 @@ public class Particle {
         acc.mult(0);
         vel.limit(maxVel);
         pos.add(vel);
+
         if(LB.pos.x >= f.xMin && LB.pos.x <= f.xMax && LB.pos.y >= f.yMin && LB.pos.y <= f.yMax){
             if(LB.val > f.val(pos.x, pos.y)){
                 LB.val = f.val(pos.x, pos.y);
@@ -45,7 +46,8 @@ public class Particle {
     }
 
     public Vector seek(Best target){
-        Vector desired = new Vector(target.pos.x, target.pos.y);
+        Vector desired = new Vector(target.pos.x - pos.x, target.pos.y - pos.y);
+
         double distance = desired.length();
         if(distance < (f.xMax - f.xMin)/5){
             double newVel = remap(distance, 0, (f.xMax - f.xMin)/5, 0, maxVel);
@@ -68,6 +70,7 @@ public class Particle {
 
         Vector steerLB = seek(LB);
         steerLB.mult(0.2);
+        steer.add(steerLB);
 
         acc.add(steer);
     }
@@ -78,22 +81,27 @@ public class Particle {
 ////            System.out.println(Math.random());
 ////        }
 //
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                JFrame frame = new JFrame("Image Panel Example");
+//                frame.setSize(600, 600);
+//                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                frame.setLocationRelativeTo(null);
+//                Function function1 = new Function(600, 600, Function.FunctionType.BEALE);
+//                FunctionPanel rightPanel = new FunctionPanel(function1.getBufferedImage());
 //
+//                for(int i=0; i<40; i++){
+//                    rightPanel.addParticle(function1);
+//                }
 //
-//        JFrame frame = new JFrame("Image Panel Example");
-//        frame.setSize(600, 600);
-//        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        frame.setLocationRelativeTo(null);
-//        Function function1 = new Function(600, 600, Function.FunctionType.BEALE);
-//        FunctionPanel rightPanel = new FunctionPanel(function1.getBufferedImage());
+//                frame.add(rightPanel);
+//                frame.setVisible(true);
 //
-//        for(int i=0; i<40; i++){
-//            rightPanel.addParticle(function1);
-//        }
-//
-//        frame.add(rightPanel);
-//        frame.setVisible(true);
-//
+//                Thread thread = new Thread(rightPanel);
+//                thread.start();
+//            }
+//        });
 //    }
 
 

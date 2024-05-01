@@ -24,7 +24,7 @@ public class GUI extends JFrame{
     //panels
     private static JPanel topPanel, leftPanel, centerPanel;
 
-    private Function function;
+    private static Function function;
     private static FunctionPanel rightPanel;
 
     //left
@@ -283,13 +283,14 @@ public class GUI extends JFrame{
         //Right panel
         Function function = new Function(600, 600, Function.FunctionType.BEALE); //tylko tymczasowo, będzie brane z dropDown menu
         rightPanel = new FunctionPanel(function.getBufferedImage());
+        this.function = function;
 //        rightPanel.setBounds(,300,400,400);
         rightPanel.setBounds(0,0,600,600);
 
         //dodanie cząstek - tymczasowe, będą się dodawać chyba dopiero po naciśnięciu przycisku Run simulation
-        for(int i=0; i<40; i++){
-            rightPanel.addParticle(function);
-        }
+//        for(int i=0; i<40; i++){
+//            rightPanel.addParticle(function);
+//        }
 
 //        rightPanel.setBackground(Color.gray);
         centerPanel.add(rightPanel);
@@ -298,10 +299,36 @@ public class GUI extends JFrame{
     }
 
     public static void main(String[] args){
-        GUI frame = new GUI();
-        frame.setVisible(true);
-        LanguageManager.setMainFrame(frame);
+        //odkomentarzuj te 3 linijki i zakomentarzuj resztę, jeśli nie będzie poprawnie działać
+//        GUI frame = new GUI();
+//        frame.setVisible(true);
+//        LanguageManager.setMainFrame(frame);
+
 //        System.out.println(leftPanel.getWidth()/2);
+
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+//                JFrame frame = new JFrame("Image Panel Example");
+//                frame.setSize(600, 600);
+//                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                frame.setLocationRelativeTo(null);
+//                Function function1 = new Function(600, 600, Function.FunctionType.BEALE);
+//                FunctionPanel rightPanel = new FunctionPanel(function1.getBufferedImage());
+
+                GUI frame = new GUI();
+                frame.setVisible(true);
+                LanguageManager.setMainFrame(frame);
+
+                for(int i=0; i<40; i++){
+                    rightPanel.addParticle(function);
+                }
+
+                Thread thread = new Thread(rightPanel);
+                thread.start();
+            }
+        });
     }
 }
 
