@@ -57,6 +57,7 @@ public class GUI extends JFrame{
         runSim.setText(LanguageManager.getMessage("run"));
         stopSim.setText(LanguageManager.getMessage("stop"));
         choosePreset.setText(LanguageManager.getMessage("preset"));
+        leftPanel.repaint();
     }
 
     public GUI() throws HeadlessException{
