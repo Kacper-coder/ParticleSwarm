@@ -27,7 +27,7 @@ public class Particle {
         double x = Utility.remap(pos.x, f.xMin, f.xMax, 0, f.W);
         double y = Utility.remap(pos.y, f.yMin, f.yMax, 0, f.H);
         g.setColor(Color.blue);
-        g.fillOval((int)x, (int)y, 7, 7);
+        g.fillOval((int)x, (int)y, 6, 6);
     }
 
     public void update(){

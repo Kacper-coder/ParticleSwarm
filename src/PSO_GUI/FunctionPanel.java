@@ -68,13 +68,12 @@ public class FunctionPanel extends JPanel implements Runnable{
             Toolkit.getDefaultToolkit().sync();
 
             try{
-                Thread.sleep(1);
+                Thread.sleep(2);
             }catch(InterruptedException e){
                 e.printStackTrace();
             }
         }
     }
-
     public void stop(){
         running = false;
     }

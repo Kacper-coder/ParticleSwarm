@@ -8,10 +8,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.*;
 
 public class GUI extends JFrame{
 
@@ -318,10 +315,17 @@ public class GUI extends JFrame{
 //                FunctionPanel rightPanel = new FunctionPanel(function1.getBufferedImage());
 
                 GUI frame = new GUI();
+                frame.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e){
+                        rightPanel.stop();
+                        frame.dispose();
+                    }
+                });
                 frame.setVisible(true);
                 LanguageManager.setMainFrame(frame);
 
-                for(int i=0; i<100; i++){
+                for(int i=0; i<200; i++){
                     rightPanel.addParticle(function);
                 }
 
