@@ -12,11 +12,11 @@ public class LoadFile {
         int choosenFile = fileChooser.showOpenDialog(parentComponent);
         if(choosenFile == JFileChooser.APPROVE_OPTION){
             selectedFile = fileChooser.getSelectedFile();
-            JOptionPane.showMessageDialog(parentComponent, "Chosen file:"+selectedFile.getAbsolutePath());
+            JOptionPane.showMessageDialog(parentComponent, LanguageManager.getMessage("chosen_file")+selectedFile.getAbsolutePath());
             return selectedFile;
         } else{
             selectedFile = null;
-            JOptionPane.showMessageDialog(parentComponent, "Nie wybrano pliku!");
+            JOptionPane.showMessageDialog(parentComponent, LanguageManager.getMessage("load_file_prompt"));
             return null;
         }
     }
