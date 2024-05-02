@@ -12,7 +12,7 @@ import java.util.Random;
 public class FunctionPanel extends JPanel implements Runnable{
     private BufferedImage imageOfFunction;
     List<Particle> particles = new ArrayList<Particle>();
-    boolean running = true;
+    boolean running;
     Best GB = null;
 
     public FunctionPanel(BufferedImage image){
@@ -24,6 +24,10 @@ public class FunctionPanel extends JPanel implements Runnable{
         Particle p = new Particle(f, Math.random()*(f.xMax-f.xMin)+f.xMin, Math.random()*(f.yMax-f.yMin)+f.yMin);
 //        Particle p = new Particle(f, Math.random()*590, Math.random()*590);
         particles.add(p);
+    }
+
+    public void deleteParticles(){
+        particles.clear();
     }
 
     @Override
@@ -76,6 +80,10 @@ public class FunctionPanel extends JPanel implements Runnable{
     }
     public void stop(){
         running = false;
+    }
+
+    public void start(){
+        running = true;
     }
 
 //    public static void main(String[] args){
