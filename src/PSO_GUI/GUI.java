@@ -8,10 +8,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.*;
 
 public class GUI extends JFrame{
 
@@ -240,9 +237,33 @@ public class GUI extends JFrame{
 
         runSim = new JButton(LanguageManager.getMessage("run"));
         runSim.setBounds(10, 535, 160, 40);
+        runSim.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.start();
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(int i=0; i<200; i++){
+                            rightPanel.addParticle(function);
+                        }
+
+                        Thread thread = new Thread(rightPanel);
+                        thread.start();
+                    }
+                });
+            }
+        });
 
         stopSim = new JButton(LanguageManager.getMessage("stop"));
         stopSim.setBounds(10, 575, 160, 40);
+        stopSim.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.deleteParticles();
+                rightPanel.stop();
+            }
+        });
 
         choosePreset = new JButton(LanguageManager.getMessage("preset"));
         choosePreset.setBounds(10, 495, 160, 40);
@@ -293,6 +314,13 @@ public class GUI extends JFrame{
 
 //        rightPanel.setBackground(Color.gray);
         centerPanel.add(rightPanel);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                rightPanel.stop();
+                dispose();
+            }
+        });
 
 //        System.out.println(rightPanel.getSize());
     }
@@ -305,7 +333,31 @@ public class GUI extends JFrame{
 
 //        System.out.println(leftPanel.getWidth()/2);
 
+        //niezależne od wyższego komentarza - odkomentarzuj poniższe SwingUtilities i zakomentarzuj resztę, jeśli przyciski run i stop nie będą poprawnie działać
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+////                JFrame frame = new JFrame("Image Panel Example");
+////                frame.setSize(600, 600);
+////                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+////                frame.setLocationRelativeTo(null);
+////                Function function1 = new Function(600, 600, Function.FunctionType.BEALE);
+////                FunctionPanel rightPanel = new FunctionPanel(function1.getBufferedImage());
+//
+//                GUI frame = new GUI();
+//                frame.setVisible(true);
+//                LanguageManager.setMainFrame(frame);
+//
+//                for(int i=0; i<200; i++){
+//                    rightPanel.addParticle(function);
+//                }
+//
+//                Thread thread = new Thread(rightPanel);
+//                thread.start();
+//            }
+//        });
 
+<<<<<<< HEAD
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -328,6 +380,11 @@ public class GUI extends JFrame{
                 thread.start();
             }
         });
+=======
+        GUI frame = new GUI();
+        frame.setVisible(true);
+        LanguageManager.setMainFrame(frame);
+>>>>>>> master
     }
 }
 
