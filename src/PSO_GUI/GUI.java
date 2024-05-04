@@ -35,6 +35,7 @@ public class GUI extends JFrame{
     private JCheckBox checkBoxMode;
 
     private JTextField par1, par2, par3;
+    private boolean blockRunButton = false;
 
     //do zmiany języków
     public void rebuildUI(){
@@ -158,8 +159,10 @@ public class GUI extends JFrame{
                 }else{
                     try{
                         rightPanel.setSwarmSize(Integer.parseInt(swarmSizeText.getText()));
+                        blockRunButton = false;
                     }catch (NumberFormatException ex){
                         System.out.println("Entered text is not an integer: " + swarmSizeText.getText());
+                        blockRunButton = true;
                     }
 
                 }
@@ -247,18 +250,21 @@ public class GUI extends JFrame{
         runSim.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rightPanel.start();
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        for(int i=0; i<rightPanel.getSwarmSize(); i++){
-                            rightPanel.addParticle(function);
-                        }
+                if(blockRunButton == false){
+                    rightPanel.start();
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            for(int i=0; i<rightPanel.getSwarmSize(); i++){
+                                rightPanel.addParticle(function);
+                            }
 
-                        Thread thread = new Thread(rightPanel);
-                        thread.start();
-                    }
-                });
+                            Thread thread = new Thread(rightPanel);
+                            thread.start();
+                        }
+                    });
+                    blockRunButton = true;
+                }
             }
         });
 
@@ -269,6 +275,7 @@ public class GUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 rightPanel.deleteParticles();
                 rightPanel.stop();
+                blockRunButton = false;
             }
         });
 
