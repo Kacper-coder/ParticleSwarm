@@ -28,7 +28,6 @@ public class FunctionPanel extends JPanel implements Runnable{
         imageOfFunction = image;
     }
 
-    //nowe
     public void addParticle(Function f){
         Particle p = new Particle(f, Math.random()*(f.xMax-f.xMin)+f.xMin, Math.random()*(f.yMax-f.yMin)+f.yMin);
 //        Particle p = new Particle(f, Math.random()*590, Math.random()*590);

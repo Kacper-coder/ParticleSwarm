@@ -234,6 +234,9 @@ public class GUI extends JFrame{
 
                 labelAlfa.setText("α:"+value/100);
                 labelBeta.setText("β:"+(100-value)/100);
+
+//                System.out.println(value/100);
+//                System.out.println((sliderIntelligence.getValue())/100);
             }
         });
 
@@ -244,6 +247,7 @@ public class GUI extends JFrame{
 
 
         confirmParameters = new JButton(LanguageManager.getMessage("confirm_parameters"));
+        //później w poniższej czynności przycisku będzie po prostu metoda setParameters
         confirmParameters.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -258,6 +262,15 @@ public class GUI extends JFrame{
                         blockRunButton = true;
                     }
                 }
+
+                //trzeba wziąć wartość ze slidera, tylko wartość slidera sliderIntelligence ciągle pokazuje 0
+                //rozwiązanie - dzielenie sliderIntelligence.getValue() przez 100 daje 0
+                double value = sliderIntelligence.getValue();
+                Particle.setAlfa(value/100);
+                Particle.setBeta((100-value)/100);
+
+                System.out.println(value/100);
+                System.out.println((100-value)/100);
             }
         });
         confirmParameters.setBounds(5, 350+leftPanel.getHeight()/2, 250,20);
