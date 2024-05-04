@@ -155,6 +155,13 @@ public class GUI extends JFrame{
             public void focusLost(FocusEvent e){
                 if(swarmSizeText.getText().isEmpty()){
                     swarmSizeText.setText(LanguageManager.getMessage("swarm_size_field"));
+                }else{
+                    try{
+                        rightPanel.setSwarmSize(Integer.parseInt(swarmSizeText.getText()));
+                    }catch (NumberFormatException ex){
+                        System.out.println("Entered text is not an integer: " + swarmSizeText.getText());
+                    }
+
                 }
             }
         });
@@ -244,7 +251,7 @@ public class GUI extends JFrame{
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        for(int i=0; i<200; i++){
+                        for(int i=0; i<rightPanel.getSwarmSize(); i++){
                             rightPanel.addParticle(function);
                         }
 
