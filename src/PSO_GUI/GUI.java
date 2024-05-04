@@ -27,7 +27,7 @@ public class GUI extends JFrame{
     //left
     private TitledBorder paramsTitle;
     private JTextField swarmSizeText, maxForceText, maxVelText;
-    private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem;
+    private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem, confirmParameters;
 
     //here
     private JLabel labelVel, labelForce, labelSwarmSize, labelAlfa, labelBeta;
@@ -55,6 +55,7 @@ public class GUI extends JFrame{
         runSim.setText(LanguageManager.getMessage("run"));
         stopSim.setText(LanguageManager.getMessage("stop"));
         choosePreset.setText(LanguageManager.getMessage("preset"));
+        confirmParameters.setText(LanguageManager.getMessage("confirm_parameters"));
         leftPanel.repaint();
     }
 
@@ -156,16 +157,16 @@ public class GUI extends JFrame{
             public void focusLost(FocusEvent e){
                 if(swarmSizeText.getText().isEmpty()){
                     swarmSizeText.setText(LanguageManager.getMessage("swarm_size_field"));
-                }else{
-                    try{
-                        rightPanel.setSwarmSize(Integer.parseInt(swarmSizeText.getText()));
-                        blockRunButton = false;
-                    }catch (NumberFormatException ex){
-                        System.out.println("Entered text is not an integer: " + swarmSizeText.getText());
-                        blockRunButton = true;
-                    }
-
                 }
+//                else{
+//                    try{
+//                        rightPanel.setSwarmSize(Integer.parseInt(swarmSizeText.getText()));
+//                        blockRunButton = false;
+//                    }catch (NumberFormatException ex){
+//                        System.out.println("Entered text is not an integer: " + swarmSizeText.getText());
+//                        blockRunButton = true;
+//                    }
+//                }
             }
         });
         swarmSizeText.setBounds(125,31+leftPanel.getHeight()/2, 140,20);
@@ -219,17 +220,8 @@ public class GUI extends JFrame{
         leftPanel.add(sliderVel);
 
 
-        checkBoxMode = new JCheckBox("Samodzielnie");
-        checkBoxMode.setBounds(5, 260+leftPanel.getHeight()/2, 150,20);
-        leftPanel.add(checkBoxMode);
-
-        labelAlfa = new JLabel("α:");
-        labelAlfa.setBounds(15, 365+leftPanel.getHeight()/2, 60, 20);
-        labelBeta = new JLabel("β:");
-        labelBeta.setBounds(70, 365+leftPanel.getHeight()/2, 60, 20);
-
         sliderIntelligence=new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
-        sliderIntelligence.setBounds(0, 310+leftPanel.getHeight()/2, 270,50);
+        sliderIntelligence.setBounds(0, 260+leftPanel.getHeight()/2, 270,50);
         sliderIntelligence.setMajorTickSpacing(20);
         sliderIntelligence.setMinorTickSpacing(5);
         sliderIntelligence.setPaintTicks(true);
@@ -244,6 +236,32 @@ public class GUI extends JFrame{
                 labelBeta.setText("β:"+(100-value)/100);
             }
         });
+
+        labelAlfa = new JLabel("α:");
+        labelAlfa.setBounds(15, 315+leftPanel.getHeight()/2, 60, 20);
+        labelBeta = new JLabel("β:");
+        labelBeta.setBounds(70, 315+leftPanel.getHeight()/2, 60, 20);
+
+
+        confirmParameters = new JButton(LanguageManager.getMessage("confirm_parameters"));
+        confirmParameters.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(swarmSizeText.getText().isEmpty()){
+                    swarmSizeText.setText(LanguageManager.getMessage("swarm_size_field"));
+                }else{
+                    try{
+                        rightPanel.setSwarmSize(Integer.parseInt(swarmSizeText.getText()));
+                        blockRunButton = false;
+                    }catch (NumberFormatException ex){
+                        System.out.println(LanguageManager.getMessage("not_an_integer") + swarmSizeText.getText());
+                        blockRunButton = true;
+                    }
+                }
+            }
+        });
+        confirmParameters.setBounds(5, 350+leftPanel.getHeight()/2, 250,20);
+        leftPanel.add(confirmParameters);
 
         runSim = new JButton(LanguageManager.getMessage("run"));
         runSim.setBounds(10, 535, 160, 40);
