@@ -87,7 +87,8 @@ public class GUI extends JFrame{
         menuItem2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //nic
+                SaveFile fileSaveDialog = new SaveFile();
+                fileSaveDialog.saveSimToFile(GUI.this, FunctionPanel.getSwarmSize(),Particle.getMaxForce(),Particle.getMaxVel(),Particle.getAlfa(), Particle.getBeta());
             }
         });
         menuItem3 = new JMenuItem(LanguageManager.getMessage("exit"));
@@ -203,6 +204,7 @@ public class GUI extends JFrame{
             @Override
             public void stateChanged(ChangeEvent e) {
                 maxForceText.setText(Integer.toString(sliderForce.getValue()));
+                //Particle.setMaxForce((sliderForce.getValue()*(1e-3)));
             }
         });
         sliderForce.setMinorTickSpacing(1);
@@ -217,6 +219,7 @@ public class GUI extends JFrame{
             @Override
             public void stateChanged(ChangeEvent e) {
                 maxVelText.setText(Integer.toString(sliderVel.getValue()));
+                //Particle.setMaxVel((sliderVel.getValue()*(1e-2)));
             }
         });
         sliderVel.setMinorTickSpacing(1);
@@ -275,6 +278,22 @@ public class GUI extends JFrame{
                 double value = sliderIntelligence.getValue();
                 Particle.setAlfa(value/100);
                 Particle.setBeta((100-value)/100);
+
+                if (Double.parseDouble(maxForceText.getText())*(1e-5) < (sliderForce.getValue()*(1e-5))||Double.parseDouble(maxForceText.getText())*(1e-5)>(sliderForce.getValue()*(1e-5))){
+                    Particle.setMaxForce((Double.parseDouble((maxForceText.getText())) * (1e-5)));
+                    System.out.println((Double.parseDouble((maxForceText.getText())) * (1e-5)));
+                }else{
+                    Particle.setMaxForce((sliderForce.getValue()*(1e-5)));
+                    System.out.println((sliderForce.getValue()*(1e-5)));
+                }
+
+                if (Double.parseDouble(maxVelText.getText())* 1e-3 < sliderVel.getValue() * 1e-3 || Double.parseDouble(maxVelText.getText())* 1e-3 > sliderVel.getValue() * 1e-3) {
+                    Particle.setMaxVel((Double.parseDouble(maxVelText.getText()))* 1e-3);
+                    System.out.println(Double.parseDouble(maxVelText.getText())* 1e-3);
+                } else {
+                    Particle.setMaxVel(sliderVel.getValue() * 1e-3);
+                    System.out.println(sliderVel.getValue() * 1e-3);
+                }
 
                 System.out.println(value/100);
                 System.out.println((100-value)/100);
@@ -407,6 +426,9 @@ public class GUI extends JFrame{
 //                thread.start();
 //            }
 //        });
+//        GUI frame = new GUI();
+//        frame.setVisible(true);
+//        LanguageManager.setMainFrame(frame);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

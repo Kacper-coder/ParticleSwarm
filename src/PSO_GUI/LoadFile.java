@@ -19,6 +19,7 @@ public class LoadFile {
         int choosenFile = fileChooser.showOpenDialog(parentComponent);
         if(choosenFile == JFileChooser.APPROVE_OPTION){
             selectedFile = fileChooser.getSelectedFile();
+            parseJSON(readFileAsString(selectedFile));
             JOptionPane.showMessageDialog(parentComponent, LanguageManager.getMessage("chosen_file")+selectedFile.getAbsolutePath());
             return readFileAsString(selectedFile);
         } else{
@@ -45,15 +46,21 @@ public class LoadFile {
         JSONObject jsonData = new JSONObject(jsonString);
 
         int swarmSize = jsonData.getInt("Swarm Size");
-        float maxForce = jsonData.getFloat("Maximum Steering Force");
-        float maxVelocity = jsonData.getFloat("Maximum Particle Velocity");
-        float alpha = jsonData.getFloat("Intelligence Alpha");
-        float beta = jsonData.getFloat("Intelligence Beta");
+        double maxForce = jsonData.getDouble("Maximum Steering Force");
+        double maxVelocity = jsonData.getDouble("Maximum Particle Velocity");
+        double alpha = jsonData.getDouble("Intelligence Alpha");
+        double beta = jsonData.getDouble("Intelligence Beta");
 
         System.out.println("Swarm Size: " + swarmSize);
         System.out.println("Maximum Steering Force: " + maxForce);
         System.out.println("Maximum Particle Velocity: " + maxVelocity);
         System.out.println("Intelligence Alpha: " + alpha);
         System.out.println("Intelligence Beta: " + beta);
+
+        Particle.setMaxForce(maxForce);
+        Particle.setMaxVel(maxVelocity);
+        Particle.setAlfa(alpha);
+        Particle.setBeta(beta);
+        FunctionPanel.setSwarmSize(swarmSize);
     }
 }

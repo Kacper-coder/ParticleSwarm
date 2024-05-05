@@ -4,19 +4,20 @@ package PSO_GUI;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import javax.swing.*;
+import java.awt.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.util.ArrayList;
 
 public class SaveFile {
-    public File saveSimToFile(int swarmSize, float maxForce, float maxVelocity, float alpha, float beta, ArrayList<Double> GB){
+    public File saveSimToFile(Component parentComponent, int swarmSize, double maxForce, double maxVelocity, double alpha, double beta){
         JFileChooser fileChooser = new JFileChooser();
-        int select = fileChooser.showSaveDialog(null);
+        int select = fileChooser.showSaveDialog(parentComponent);
 
         if(select == JFileChooser.APPROVE_OPTION){
             File filePath = fileChooser.getSelectedFile();
-            JSONObject jsonData = parseData(swarmSize, maxForce, maxVelocity, alpha, beta, GB);
+            JSONObject jsonData = parseData(swarmSize, maxForce, maxVelocity, alpha, beta);
 
             try( FileWriter writer = new FileWriter(filePath)) {
                 writer.write(jsonData.toString());
@@ -29,7 +30,7 @@ public class SaveFile {
         return null;
     };
 
-    public JSONObject parseData(int swarmSize, float maxForce, float maxVelocity, float alpha, float beta, ArrayList<Double> GB){
+    public JSONObject parseData(int swarmSize, double maxForce, double maxVelocity, double alpha, double beta){
         JSONObject jsonData = new JSONObject();
 
         jsonData.put("Swarm Size", swarmSize);
@@ -38,11 +39,11 @@ public class SaveFile {
         jsonData.put("Intelligence Alpha", alpha);
         jsonData.put("Intelligence Beta", beta);
 
-        JSONArray GBarray = new JSONArray();
-        for(double value : GB){
-            GBarray.put(value);
-        }
-        jsonData.put("Global Best", GBarray);
+//        JSONArray GBarray = new JSONArray();
+//        for(double value : GB){
+//            GBarray.put(value);
+//        }
+//        jsonData.put("Global Best", GBarray);
         return jsonData;
     };
 }
