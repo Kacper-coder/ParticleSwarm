@@ -9,8 +9,8 @@ import static PSO_GUI.Utility.remap;
 public class Particle {
     private Vector pos, vel, acc;
     private Function f;
-    double maxVel=1e-2;
-    double maxForce= maxVel*1e-3;
+    static double maxVel=1e-2;
+    static double maxForce= maxVel*1e-3;
     public Best LB;
     public static double alfa=0.8, beta=0.2;
 
@@ -78,19 +78,39 @@ public class Particle {
 
     public static void setAlfa(double n){
         alfa=n;
+        System.out.println("alfa set");
     }
 
     public static void setBeta(double n){
         beta=n;
+        System.out.println("beta set");
     }
 
-//    public double getAlfa(){
-//        return alfa;
-//    }
-//
-//    public double getBeta(){
-//        return beta;
-//    }
+    public static double getAlfa(){
+        return alfa;
+    }
+
+    public static double getBeta(){
+       return beta;
+   }
+
+   public static void setMaxVel(double n){
+        maxVel = n;
+       System.out.println("maxVel set");
+   }
+
+   public static void setMaxForce(double n){
+        maxForce = n;
+       System.out.println("maxForce set");
+   }
+
+   public static double getMaxVel(){
+        return maxVel;
+   }
+
+   public static double getMaxForce(){
+        return maxForce;
+   }
 
     //testy
 //    public static void main(String[] args){

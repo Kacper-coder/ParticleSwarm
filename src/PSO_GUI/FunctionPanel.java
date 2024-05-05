@@ -14,13 +14,14 @@ public class FunctionPanel extends JPanel implements Runnable{
     List<Particle> particles = new ArrayList<Particle>();
     boolean running;
     Best GB = null;
-    int swarmSize = 200;
+    static int swarmSize = 200;
 
-    public void setSwarmSize(int swarmSize){
-        this.swarmSize = swarmSize;
+    public static void setSwarmSize(int n){
+        swarmSize = n;
+        System.out.println("swarmSize set");
     }
 
-    public int getSwarmSize(){
+    public static int getSwarmSize(){
         return swarmSize;
     }
 
