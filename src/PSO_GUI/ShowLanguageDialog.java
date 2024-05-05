@@ -1,4 +1,3 @@
-
 //Kacper & Tymoteusz
 package PSO_GUI;
 

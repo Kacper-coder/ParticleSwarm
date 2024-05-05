@@ -1,3 +1,4 @@
+
 //Kacper
 package PSO_GUI;
 
@@ -45,19 +46,4 @@ public class SaveFile {
         jsonData.put("Global Best", GBarray);
         return jsonData;
     };
-
-//    public static void main(String[] args) {
-//        SaveFile saver = new SaveFile();
-//        int swarmSize = 10;
-//        float maxForce = 1.0f;
-//        float maxVelocity = 2.0f;
-//        float alpha = 0.5f;
-//        float beta = 0.8f;
-//        ArrayList<Double> GB = new ArrayList<>();
-//        GB.add(0.1);
-//        GB.add(0.2);
-//        GB.add(0.3);
-//
-//        saver.saveSimToFile(swarmSize, maxForce, maxVelocity, alpha, beta, GB);
-//    }
 }
