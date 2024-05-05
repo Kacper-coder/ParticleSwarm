@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class GUI extends JFrame{
 
@@ -73,7 +74,11 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 LoadFile fileSelectionDialog = new LoadFile();
-                fileSelectionDialog.loadFile(GUI.this);
+                try {
+                    fileSelectionDialog.loadFile(GUI.this);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
             menuItem2 = new JMenuItem(LanguageManager.getMessage("save_file"));
@@ -357,7 +362,6 @@ public class GUI extends JFrame{
 //            }
 //        });
 
-<<<<<<< HEAD
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -380,11 +384,7 @@ public class GUI extends JFrame{
                 thread.start();
             }
         });
-=======
-        GUI frame = new GUI();
-        frame.setVisible(true);
-        LanguageManager.setMainFrame(frame);
->>>>>>> master
+
     }
 }
 
