@@ -14,12 +14,20 @@ public class FunctionPanel extends JPanel implements Runnable{
     List<Particle> particles = new ArrayList<Particle>();
     boolean running;
     Best GB = null;
+    int swarmSize = 200;
+
+    public void setSwarmSize(int swarmSize){
+        this.swarmSize = swarmSize;
+    }
+
+    public int getSwarmSize(){
+        return swarmSize;
+    }
 
     public FunctionPanel(BufferedImage image){
         imageOfFunction = image;
     }
 
-    //nowe
     public void addParticle(Function f){
         Particle p = new Particle(f, Math.random()*(f.xMax-f.xMin)+f.xMin, Math.random()*(f.yMax-f.yMin)+f.yMin);
 //        Particle p = new Particle(f, Math.random()*590, Math.random()*590);
@@ -87,7 +95,8 @@ public class FunctionPanel extends JPanel implements Runnable{
     }
 
     public void start(){
-        running = true;
+        if(running == false)
+            running = true;
     }
 
 //    public static void main(String[] args){

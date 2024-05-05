@@ -12,6 +12,7 @@ public class Particle {
     double maxVel=1e-2;
     double maxForce= maxVel*1e-3;
     public Best LB;
+    public static double alfa=0.8, beta=0.2;
 
     public Particle(Function func, double x, double y){
         f = func;
@@ -64,16 +65,32 @@ public class Particle {
         Vector steer = new Vector(0, 0);
         if(GB != null){
             Vector steerGB = seek(GB);
-            steerGB.mult(0.8);
+            steerGB.mult(alfa); //alfa
             steer.add(steerGB);
         }
 
         Vector steerLB = seek(LB);
-        steerLB.mult(0.2);
+        steerLB.mult(beta); //beta
         steer.add(steerLB);
 
         acc.add(steer);
     }
+
+    public static void setAlfa(double n){
+        alfa=n;
+    }
+
+    public static void setBeta(double n){
+        beta=n;
+    }
+
+//    public double getAlfa(){
+//        return alfa;
+//    }
+//
+//    public double getBeta(){
+//        return beta;
+//    }
 
     //testy
 //    public static void main(String[] args){
