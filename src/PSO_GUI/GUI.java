@@ -220,7 +220,7 @@ public class GUI extends JFrame{
         leftPanel.add(sliderVel);
 
 
-        sliderIntelligence=new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+        sliderIntelligence=new JSlider(JSlider.HORIZONTAL, 0, 100, 80);
         sliderIntelligence.setBounds(0, 260+leftPanel.getHeight()/2, 270,50);
         sliderIntelligence.setMajorTickSpacing(20);
         sliderIntelligence.setMinorTickSpacing(5);
@@ -240,9 +240,9 @@ public class GUI extends JFrame{
             }
         });
 
-        labelAlfa = new JLabel("α:");
+        labelAlfa = new JLabel("α:" + (double)sliderIntelligence.getValue()/100);
         labelAlfa.setBounds(15, 315+leftPanel.getHeight()/2, 60, 20);
-        labelBeta = new JLabel("β:");
+        labelBeta = new JLabel("β:" + (double)(100-sliderIntelligence.getValue())/100);
         labelBeta.setBounds(70, 315+leftPanel.getHeight()/2, 60, 20);
 
 
