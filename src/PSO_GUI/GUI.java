@@ -397,9 +397,9 @@ public class GUI extends JFrame{
 
     public static void main(String[] args){
         //odkomentarzuj te 3 linijki i zakomentarzuj resztę, jeśli nie będzie poprawnie działać
-//        GUI frame = new GUI();
-//        frame.setVisible(true);
-//        LanguageManager.setMainFrame(frame);
+        GUI frame = new GUI();
+        frame.setVisible(true);
+        LanguageManager.setMainFrame(frame);
 
 //        System.out.println(leftPanel.getWidth()/2);
 
@@ -429,28 +429,28 @@ public class GUI extends JFrame{
 //        GUI frame = new GUI();
 //        frame.setVisible(true);
 //        LanguageManager.setMainFrame(frame);
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-//                JFrame frame = new JFrame("Image Panel Example");
-//                frame.setSize(600, 600);
-//                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//                frame.setLocationRelativeTo(null);
-//                Function function1 = new Function(600, 600, Function.FunctionType.BEALE);
-//                FunctionPanel rightPanel = new FunctionPanel(function1.getBufferedImage());
-
-                GUI frame = new GUI();
-                frame.setVisible(true);
-                LanguageManager.setMainFrame(frame);
-
-                for(int i=0; i<100; i++){
-                    rightPanel.addParticle(function);
-                }
-
-                Thread thread = new Thread(rightPanel);
-                thread.start();
-            }
-        });
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+////                JFrame frame = new JFrame("Image Panel Example");
+////                frame.setSize(600, 600);
+////                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+////                frame.setLocationRelativeTo(null);
+////                Function function1 = new Function(600, 600, Function.FunctionType.BEALE);
+////                FunctionPanel rightPanel = new FunctionPanel(function1.getBufferedImage());
+//
+//                GUI frame = new GUI();
+//                frame.setVisible(true);
+//                LanguageManager.setMainFrame(frame);
+//
+//                for(int i=0; i<100; i++){
+//                    rightPanel.addParticle(function);
+//                }
+//
+//                Thread thread = new Thread(rightPanel);
+//                thread.start();
+//            }
+//        });
     }
 }
 
