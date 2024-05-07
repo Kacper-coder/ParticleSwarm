@@ -308,6 +308,8 @@ public class GUI extends JFrame{
         runSim.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Particle.nullBest();
+                rightPanel.nullBest();
                 if(blockRunButton == false){
                     rightPanel.start();
                     SwingUtilities.invokeLater(new Runnable() {

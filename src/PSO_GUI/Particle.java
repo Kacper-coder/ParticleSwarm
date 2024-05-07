@@ -11,7 +11,7 @@ public class Particle {
     private Function f;
     static double maxVel=1e-2;
     static double maxForce= maxVel*1e-3;
-    public Best LB;
+    public static Best LB;
     public static double alfa=0.8, beta=0.2;
 
     public Particle(Function func, double x, double y){
@@ -24,11 +24,15 @@ public class Particle {
         LB = new Best(pos, f.val(pos.x, pos.y));
     }
 
+    public static void nullBest(){
+        LB = null;
+    }
+
     public void draw(Graphics g){
         double x = Utility.remap(pos.x, f.xMin, f.xMax, 0, f.W);
         double y = Utility.remap(pos.y, f.yMin, f.yMax, 0, f.H);
         g.setColor(Color.blue);
-        g.fillOval((int)x, (int)y, 6, 6);
+        g.fillOval((int)x, (int)y, 5, 5);
     }
 
     public void update(){

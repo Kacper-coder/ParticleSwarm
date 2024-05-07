@@ -13,8 +13,12 @@ public class FunctionPanel extends JPanel implements Runnable{
     private BufferedImage imageOfFunction;
     List<Particle> particles = new ArrayList<Particle>();
     boolean running;
-    Best GB = null;
+    static Best GB = null;
     static int swarmSize = 200;
+
+    public static void nullBest(){
+        GB = null;
+    }
 
     public static void setSwarmSize(int n){
         swarmSize = n;
