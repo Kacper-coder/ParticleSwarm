@@ -177,10 +177,11 @@ public class GUI extends JFrame{
 //                }
             }
         });
+        //w przyszłości w JTextFieldach będzie sprawdzanie czy wprowadzona wartości jest integerem
         swarmSizeText.setBounds(125,31+leftPanel.getHeight()/2, 140,20);
-        maxForceText = new JTextField("Fmax");
+        maxForceText = new JTextField("1");
         maxForceText.setBounds(180,100+leftPanel.getHeight()/2, 50,20);
-        maxVelText = new JTextField("vmax");
+        maxVelText = new JTextField("1");
         maxVelText.setBounds(180,200+leftPanel.getHeight()/2, 50,20);
 
 
@@ -287,12 +288,12 @@ public class GUI extends JFrame{
                     System.out.println((sliderForce.getValue()*(1e-5)));
                 }
 
-                if (Double.parseDouble(maxVelText.getText())* 1e-3 < sliderVel.getValue() * 1e-3 || Double.parseDouble(maxVelText.getText())* 1e-3 > sliderVel.getValue() * 1e-3) {
-                    Particle.setMaxVel((Double.parseDouble(maxVelText.getText()))* 1e-3);
-                    System.out.println(Double.parseDouble(maxVelText.getText())* 1e-3);
+                if (Double.parseDouble(maxVelText.getText())* 1e-2 < sliderVel.getValue() * 1e-2 || Double.parseDouble(maxVelText.getText())* 1e-2 > sliderVel.getValue() * 1e-2) {
+                    Particle.setMaxVel((Double.parseDouble(maxVelText.getText()))* 1e-2);
+                    System.out.println(Double.parseDouble(maxVelText.getText())* 1e-2);
                 } else {
-                    Particle.setMaxVel(sliderVel.getValue() * 1e-3);
-                    System.out.println(sliderVel.getValue() * 1e-3);
+                    Particle.setMaxVel(sliderVel.getValue() * 1e-2);
+                    System.out.println(sliderVel.getValue() * 1e-2);
                 }
 
                 System.out.println(value/100);
