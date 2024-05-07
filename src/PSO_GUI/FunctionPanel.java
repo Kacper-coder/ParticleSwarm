@@ -14,6 +14,7 @@ public class FunctionPanel extends JPanel implements Runnable{
     List<Particle> particles = new ArrayList<Particle>();
     boolean running;
     static Best GB = null;
+//    static Best GB = null;
     static int swarmSize = 200;
 
     public static void nullBest(){

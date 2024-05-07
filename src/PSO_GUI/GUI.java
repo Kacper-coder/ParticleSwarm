@@ -308,9 +308,9 @@ public class GUI extends JFrame{
         runSim.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Particle.nullBest();
-                rightPanel.nullBest();
                 if(blockRunButton == false){
+//                    Particle.nullBest(); //tworzyło błąd w postaci cząstek nie słuchających się własnego LB, usuń
+                    rightPanel.nullBest();
                     rightPanel.start();
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
