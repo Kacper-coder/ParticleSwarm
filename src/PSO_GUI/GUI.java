@@ -199,7 +199,7 @@ public class GUI extends JFrame{
 
 
 
-        sliderForce = new JSlider(JSlider.HORIZONTAL, 0, 50, 0);
+        sliderForce = new JSlider(JSlider.HORIZONTAL, 0, 50, 1);
         sliderForce.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -214,7 +214,7 @@ public class GUI extends JFrame{
         sliderForce.setBounds(5, 100+leftPanel.getHeight()/2, 160,50);
         leftPanel.add(sliderForce);
 
-        sliderVel = new JSlider(JSlider.HORIZONTAL, 0, 50, 0);
+        sliderVel = new JSlider(JSlider.HORIZONTAL, 0, 50, 1);
         sliderVel.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
