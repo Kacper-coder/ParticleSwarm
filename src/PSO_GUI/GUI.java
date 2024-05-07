@@ -363,8 +363,9 @@ public class GUI extends JFrame{
         //Center panel
         centerPanel = new JPanel();
         this.add(centerPanel, BorderLayout.CENTER);
-        centerPanel.setBackground(Color.gray);
-        centerPanel.setLayout(new GridLayout(1,1));
+//        centerPanel.setBackground(Color.white);
+//        centerPanel.setLayout(new GridLayout(1,1));
+        centerPanel.setLayout(null);
 
         //Top panel
         topPanel = new JPanel();

@@ -9,7 +9,13 @@ import java.awt.image.BufferedImage;
 public class Function{
     private FunctionPanel functionPanel;
     private int rLow=36, gLow=70, bLow=86;
-    private int rHigh=255, gHigh=255, bHigh=174;
+//    private int rLow=0, gLow=0, bLow=0; //czarny
+//    private int rHigh=255, gHigh=255, bHigh=174; //żółtawy
+//    private int rHigh=0, gHigh=128, bHigh=128; //trochę jaśniejszy teal
+//    private int rHigh=50, gHigh=153, bHigh=153; //jeszcze trochę jaśniejszy teal
+//    private int rHigh=102, gHigh=178, bHigh=178; //jeszcze jeszcze
+    private int rHigh=153, gHigh=204, bHigh=204;//jeszcze jeszcze jaśniejszy
+//    private int rHigh=178, gHigh=216, bHigh=216; //blady
     private BufferedImage functionImage;
 
     public enum FunctionType{
