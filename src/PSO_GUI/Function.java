@@ -57,6 +57,7 @@ public class Function{
         return (n - start1) / (stop1 - start1) * (stop2 -start2) + start2;
     }
 
+    //stworzenie bitmapy punkt po punkcie
     public void create(){
         Graphics2D g2d = functionImage.createGraphics();
         for(int i=0; i<W; i++){
@@ -81,6 +82,7 @@ public class Function{
 
     public double val(double x, double y){
         switch(function){
+            //wzór funkcji Beale'a
             case BEALE:
                 return Math.pow((1.5-x+x*y), 2) + Math.pow((2.25-x+x*Math.pow(y, 2)) , 2) + Math.pow((2.625-x+x*Math.pow(y, 3)), 2);
             case OTHER1:

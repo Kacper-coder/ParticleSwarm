@@ -9,7 +9,9 @@ import static PSO_GUI.Utility.remap;
 public class Particle {
     private Vector pos, vel, acc;
     private Function f;
+    //maksymalna dozwolona predkość - określa "krok" przeszukiwania przestrzeni, czyli dokładność
     static double maxVel=1e-2;
+    //maksymalna siła sterująca - określa "bezwładność" czątki, czyli gwałtowność ruchu, przyczynia się do zwiększenia losowości ruchu
     static double maxForce= maxVel*1e-3;
     public Best LB;
 //    public static Best LB;
@@ -30,18 +32,21 @@ public class Particle {
 //    }
 
     public void draw(Graphics g){
+        //remapowanie pozycji z dziedziny funkcji na obszar okna
         double x = Utility.remap(pos.x, f.xMin, f.xMax, 0, f.W);
         double y = Utility.remap(pos.y, f.yMin, f.yMax, 0, f.H);
         g.setColor(Color.blue);
         g.fillOval((int)x, (int)y, 5, 5);
     }
 
+    //aktualizacja parametrów ruchu cząstki
     public void update(){
         vel.add(acc);
         acc.mult(0);
         vel.limit(maxVel);
         pos.add(vel);
 
+        //aktualizacja minimum lokalnego
         if(LB.pos.x >= f.xMin && LB.pos.x <= f.xMax && LB.pos.y >= f.yMin && LB.pos.y <= f.yMax){
             if(LB.val > f.val(pos.x, pos.y)){
                 LB.val = f.val(pos.x, pos.y);
@@ -56,12 +61,16 @@ public class Particle {
 
         double distance = desired.length();
         if(distance < (f.xMax - f.xMin)/5){
+            //spowolnienie cząstki w pobliżu minimum
             double newVel = remap(distance, 0, (f.xMax - f.xMin)/5, 0, maxVel);
             desired.setLength(newVel);
         }else{
+            //w przeciwnym przypadku prędkość maksymalna
             desired.setLength(maxVel);
         }
+        //wyznaczenie wektora siły sterującej - różnica między aktualną prędkością, a wyliczoną prędkością pożądana
         Vector steerF = new Vector(desired.x - vel.x, desired.y - vel.y);
+        //ograniczenie maksymalnej wielkości siły sterującej, żeby zachować płynność ruchu cząstki i pozwolić jej "błądzić"
         steerF.limit(maxForce);
         return steerF;
     }
@@ -78,6 +87,7 @@ public class Particle {
         steerLB.mult(beta); //beta
         steer.add(steerLB);
 
+        //wyznaczenie siły wypadkowej
         acc.add(steer);
     }
 

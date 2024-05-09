@@ -44,6 +44,7 @@ public class FunctionPanel extends JPanel implements Runnable{
         particles.clear();
     }
 
+    //
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
