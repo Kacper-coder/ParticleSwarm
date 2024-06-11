@@ -376,7 +376,7 @@ public class GUI extends JFrame{
 
         //Right panel
 //        Function function = new Function(600, 600, Function.FunctionType.BEALE); //tylko tymczasowo, będzie brane z dropDown menu
-        Function function = new Function(600, 600, Function.FunctionType.BUKIN);
+        Function function = new Function(600, 600, Function.FunctionType.BEALE);
         rightPanel = new FunctionPanel(function.getBufferedImage());
         this.function = function;
 //        rightPanel.setBounds(,300,400,400);

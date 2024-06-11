@@ -26,7 +26,11 @@ public class Function{
         BUKIN
     }
 //    private FunctionType function = FunctionType.BEALE;
-    public FunctionType function = FunctionType.HIMMELBLAU;
+    public FunctionType function = FunctionType.BEALE;
+
+    public void setFunctionType(FunctionType functionType){
+        function = functionType;
+    }
 
     public int W, H;
     double xMax, xMin, yMax, yMin, vMin, vMax;
