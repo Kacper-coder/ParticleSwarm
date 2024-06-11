@@ -10,6 +10,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Random;
 
 public class GUI extends JFrame{
 
@@ -37,6 +38,9 @@ public class GUI extends JFrame{
 
     private JTextField par1, par2, par3;
     private boolean blockRunButton = false;
+
+    public long seed = System.currentTimeMillis();
+    public int loadingFromFile = 0;
 
     //do zmiany języków
     public void rebuildUI(){
@@ -88,7 +92,7 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 SaveFile fileSaveDialog = new SaveFile();
-                fileSaveDialog.saveSimToFile(GUI.this, FunctionPanel.getSwarmSize(),Particle.getMaxForce(),Particle.getMaxVel(),Particle.getAlfa(), Particle.getBeta());
+                fileSaveDialog.saveSimToFile(GUI.this, FunctionPanel.getSwarmSize(),Particle.getMaxForce(),Particle.getMaxVel(),Particle.getAlfa(), Particle.getBeta(),GUI.this.seed);
             }
         });
         menuItem3 = new JMenuItem(LanguageManager.getMessage("exit"));
@@ -309,20 +313,45 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(blockRunButton == false){
-//                    Particle.nullBest(); //tworzyło błąd w postaci cząstek nie słuchających się własnego LB, usuń
+                    // Particle.nullBest(); //tworzyło błąd w postaci cząstek nie słuchających się własnego LB, usuń
                     rightPanel.nullBest();
                     rightPanel.start();
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            for(int i=0; i<rightPanel.getSwarmSize(); i++){
-                                rightPanel.addParticle(function);
-                            }
 
-                            Thread thread = new Thread(rightPanel);
-                            thread.start();
-                        }
-                    });
+                    // Check if loading from file
+                    if (loadingFromFile==1) {
+                        // Use the saved seed
+                        Random rand = new Random(seed);
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                for(int i=0; i<rightPanel.getSwarmSize(); i++){
+                                    rightPanel.addParticle(function, rand);
+                                }
+
+                                Thread thread = new Thread(rightPanel);
+                                thread.start();
+                                GUI.this.loadingFromFile = 0;
+                            }
+                        });
+                    } else {
+                        // Generate a new seed
+                        long seed = System.currentTimeMillis();
+                        Random rand = new Random(seed);
+
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                for(int i=0; i<rightPanel.getSwarmSize(); i++){
+                                    rightPanel.addParticle(function, rand);
+                                }
+
+                                Thread thread = new Thread(rightPanel);
+                                thread.start();
+                                GUI.this.seed = seed;
+                            }
+                        });
+                    }
+
                     blockRunButton = true;
                 }
             }

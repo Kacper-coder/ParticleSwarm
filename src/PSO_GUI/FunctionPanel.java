@@ -16,6 +16,7 @@ public class FunctionPanel extends JPanel implements Runnable{
     static Best GB = null;
 //    static Best GB = null;
     static int swarmSize = 200;
+    Random rand;
 
     public static void nullBest(){
         GB = null;
@@ -39,8 +40,8 @@ public class FunctionPanel extends JPanel implements Runnable{
         repaint();
     }
 
-    public void addParticle(Function f){
-        Particle p = new Particle(f, Math.random()*(f.xMax-f.xMin)+f.xMin, Math.random()*(f.yMax-f.yMin)+f.yMin);
+    public void addParticle(Function f, Random rand){
+        Particle p = new Particle(f, rand.nextInt()*(f.xMax-f.xMin)+f.xMin, rand.nextInt()*(f.yMax-f.yMin)+f.yMin);
 //        Particle p = new Particle(f, Math.random()*590, Math.random()*590);
         particles.add(p);
     }
