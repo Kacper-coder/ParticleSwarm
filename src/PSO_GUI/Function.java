@@ -20,13 +20,18 @@ public class Function{
 
     public enum FunctionType{
         BEALE,
-        OTHER1,
-        OTHER2
+        ACKLEY,
+        HIMMELBLAU,
+        GOLDSTEIN,
+        BUKIN
     }
-    private FunctionType function = FunctionType.BEALE;
+//    private FunctionType function = FunctionType.BEALE;
+    public FunctionType function = FunctionType.HIMMELBLAU;
 
     public int W, H;
     double xMax, xMin, yMax, yMin, vMin, vMax;
+
+    boolean logScale = true;
 
     public BufferedImage getBufferedImage(){
         return functionImage;
@@ -37,6 +42,8 @@ public class Function{
         this.W = W;
         this.H = H;
 
+        function = chosenFunction;
+
         switch(chosenFunction){
             case BEALE:
                 xMin = -4.5;
@@ -45,8 +52,44 @@ public class Function{
                 yMax = 4.5;
                 vMin = 1e-5;
                 vMax = 2e6;
-            case OTHER1:
-            case OTHER2:
+                logScale=true;
+                break;
+            case ACKLEY:
+                xMin = -5;
+                xMax = 5;
+                yMin = -5;
+                yMax = 5;
+                vMin = 0;
+                vMax = 15;
+                logScale=false;
+                break;
+            case HIMMELBLAU:
+                xMin = -5;
+                xMax = 5;
+                yMin = -5;
+                yMax = 5;
+                vMin = 1e-3;
+                vMax = 1e3;
+                logScale=true;
+                break;
+            case GOLDSTEIN:
+                xMin = -2;
+                xMax = 2;
+                yMin = -3;
+                yMax = 1;
+                vMin = 1;
+                vMax = 1e7;
+                logScale=true;
+                break;
+            case BUKIN:
+                xMin = -15;
+                xMax = -5;
+                yMin = -4;
+                yMax = 6;
+                vMin = 0;
+                vMax = 250;
+                logScale=false;
+                break;
         }
 
         functionImage = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
@@ -67,9 +110,16 @@ public class Function{
                 double y = remap(j, 0, H-1, yMin, yMax);
                 double v = val(x, y);
                 //mapowanie wartości funkcji na kolor
-                double r = remap(Math.log(v), Math.log(vMin), Math.log(vMax), rLow, rHigh);
-                double g = remap(Math.log(v), Math.log(vMin), Math.log(vMax), gLow, gHigh);
-                double b = remap(Math.log(v), Math.log(vMin), Math.log(vMax), bLow, bHigh);
+                double r, g, b;
+                if(logScale){
+                    r = remap(Math.log(v), Math.log(vMin), Math.log(vMax), rLow, rHigh);
+                    g = remap(Math.log(v), Math.log(vMin), Math.log(vMax), gLow, gHigh);
+                    b = remap(Math.log(v), Math.log(vMin), Math.log(vMax), bLow, bHigh);
+                }else{
+                    r = remap(v, vMin, vMax, rLow, rHigh);
+                    g = remap(v, vMin, vMax, gLow, gHigh);
+                    b = remap(v, vMin, vMax, bLow, bHigh);
+                }
                 //rysowanie punkt po punkcie
                 int rgb = ((int)r << 16) | ((int)g << 8) | (int)b;
 //                functionImage.setRGB(i, j, rgb);
@@ -85,10 +135,15 @@ public class Function{
             //wzór funkcji Beale'a
             case BEALE:
                 return Math.pow((1.5-x+x*y), 2) + Math.pow((2.25-x+x*Math.pow(y, 2)) , 2) + Math.pow((2.625-x+x*Math.pow(y, 3)), 2);
-            case OTHER1:
-                return 0;
-            case OTHER2:
-                return 1;
+            case ACKLEY:
+                return -20*Math.exp(-0.2*Math.sqrt(0.5*(Math.pow(x, 2) + Math.pow(y, 2)))) - Math.exp(0.5*(Math.cos(2*3.14*x)+Math.cos(2*3.14*y))) + Math.exp(1) + 20;
+            case HIMMELBLAU:
+                //do zmiany
+                return Math.pow(x*x+y-11, 2) + Math.pow(x+y*y-7, 2);
+            case GOLDSTEIN:
+                return (1+Math.pow(x+y+1, 2)*(19-14*x+3*Math.pow(x, 2)-14*y+6*x*y+3*Math.pow(y, 2)))*(30+Math.pow((2*x-3*y), 2)*(18-32*x+12*Math.pow(x, 2) + 48*y-36*x*y+27*Math.pow(y, 2)));
+            case BUKIN:
+                return 100*Math.sqrt(Math.abs(y-0.01*x*x)) + 0.01*Math.abs(x+10);
             default:
                 throw new IllegalArgumentException("Invalid function value: " + function);
         }
