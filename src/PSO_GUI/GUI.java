@@ -345,7 +345,36 @@ public class GUI extends JFrame{
         choosePreset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShowChoosePresetDialog.showChoosePresetDialog(GUI.this);
+                String[] languages = {"Beale", "Ackley", "Himmelblau","Goldstein","Bukin"};
+
+                String selectedLanguage = (String) JOptionPane.showInputDialog(GUI.this,
+                        LanguageManager.getMessage("function"), LanguageManager.getMessage("preset"),
+                        JOptionPane.PLAIN_MESSAGE, null,
+                        languages, languages[0]);
+
+                Function function;
+                switch(selectedLanguage){
+                    case "Beale":
+                        function = new Function(600, 600, Function.FunctionType.BEALE);
+
+                        break;
+                    case "Ackley":
+                        function = new Function(600, 600, Function.FunctionType.ACKLEY);
+                        break;
+                    case "Himmelblau":
+                        function = new Function(600, 600, Function.FunctionType.HIMMELBLAU);
+                        break;
+                    case "Goldstein":
+                        function = new Function(600, 600, Function.FunctionType.GOLDSTEIN);
+                        break;
+                    case "Bukin":
+                        function = new Function(600, 600, Function.FunctionType.BUKIN);
+                        break;
+                }
+
+                if (selectedLanguage != null) {
+                    JOptionPane.showMessageDialog(GUI.this, LanguageManager.getMessage("function_prompt")+ selectedLanguage);
+                }
             }
         });
 
