@@ -30,6 +30,7 @@ public class Function{
 
     public void setFunctionType(FunctionType functionType){
         function = functionType;
+        create();
     }
 
     public int W, H;

@@ -118,16 +118,16 @@ public class GUI extends JFrame{
                 }
             }
         });
-        menuItem5 = new JMenuItem(LanguageManager.getMessage("display_settings"));
-        menuItem5.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //nic
-            }
-        });
+//        menuItem5 = new JMenuItem(LanguageManager.getMessage("display_settings"));
+//        menuItem5.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //nic
+//            }
+//        });
 
         settingsMenu.add(menuItem4);
-        settingsMenu.add(menuItem5);
+//        settingsMenu.add(menuItem5);
         menuBar.add(settingsMenu);
         this.setJMenuBar(menuBar);
 
@@ -352,28 +352,43 @@ public class GUI extends JFrame{
                         JOptionPane.PLAIN_MESSAGE, null,
                         languages, languages[0]);
 
-                Function function;
-                switch(selectedLanguage){
-                    case "Beale":
-                        function = new Function(600, 600, Function.FunctionType.BEALE);
 
-                        break;
-                    case "Ackley":
-                        function = new Function(600, 600, Function.FunctionType.ACKLEY);
-                        break;
-                    case "Himmelblau":
-                        function = new Function(600, 600, Function.FunctionType.HIMMELBLAU);
-                        break;
-                    case "Goldstein":
-                        function = new Function(600, 600, Function.FunctionType.GOLDSTEIN);
-                        break;
-                    case "Bukin":
-                        function = new Function(600, 600, Function.FunctionType.BUKIN);
-                        break;
-                }
 
                 if (selectedLanguage != null) {
                     JOptionPane.showMessageDialog(GUI.this, LanguageManager.getMessage("function_prompt")+ selectedLanguage);
+                    Function function1;
+                    switch(selectedLanguage){
+                        case "Beale":
+                            function1 = new Function(600, 600, Function.FunctionType.BEALE);
+                            function = function1;
+                            rightPanel.changeFunctionImage(function1.getBufferedImage());
+                            break;
+                        case "Ackley":
+                            function1 = new Function(600, 600, Function.FunctionType.ACKLEY);
+                            function = function1;
+                            rightPanel.changeFunctionImage(function1.getBufferedImage());
+//                            function.setFunctionType(Function.FunctionType.ACKLEY);
+
+                            break;
+                        case "Himmelblau":
+                            function1 = new Function(600, 600, Function.FunctionType.HIMMELBLAU);
+                            function = function1;
+                            rightPanel.changeFunctionImage(function1.getBufferedImage());
+//                            function.setFunctionType(Function.FunctionType.HIMMELBLAU);
+                            break;
+                        case "Goldstein":
+                            function1 = new Function(600, 600, Function.FunctionType.GOLDSTEIN);
+                            function = function1;
+                            rightPanel.changeFunctionImage(function1.getBufferedImage());
+//                            function.setFunctionType(Function.FunctionType.GOLDSTEIN);
+                            break;
+                        case "Bukin":
+                            function1 = new Function(600, 600, Function.FunctionType.BUKIN);
+                            function = function1;
+                            rightPanel.changeFunctionImage(function1.getBufferedImage());
+//                            function.setFunctionType(Function.FunctionType.BUKIN);
+                            break;
+                    }
                 }
             }
         });

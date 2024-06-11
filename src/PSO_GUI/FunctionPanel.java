@@ -74,6 +74,7 @@ public class FunctionPanel extends JPanel implements Runnable{
                         GB.val = p.LB.val;
                         GB.pos.x = p.LB.pos.x;
                         GB.pos.y = p.LB.pos.y;
+                        System.out.println("GB: " + GB.val);
                     }
                 }else{
                     GB = new Best(p.LB.pos, p.LB.val);
@@ -88,6 +89,7 @@ public class FunctionPanel extends JPanel implements Runnable{
 //                c.setPosition(x,y);
 //                window.draw(c);
 //            }
+
 
             Toolkit.getDefaultToolkit().sync();
 
