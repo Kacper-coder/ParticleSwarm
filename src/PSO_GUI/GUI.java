@@ -326,15 +326,12 @@ public class GUI extends JFrame{
                     timer = new Timer(100, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            // Update the display here
                             rightPanel.repaint(); // Assuming rightPanel is where the simulation is drawn
                             if(FunctionPanel.GB != null){
-                                // Append the new text to the existing text in textPane
                                 //String currentText = GUI.this.textPane.getText();
                                 //String newText = FunctionPanel.getGB();
                                 GUI.this.textPane.setText("GB: " + FunctionPanel.getGB() + "\n" + "X: " + FunctionPanel.getGBx() + "\n" + "Y: " + FunctionPanel.getGBy() + "\n");
 
-                                // Scroll to the bottom of the textPane
                                 GUI.this.textPane.setCaretPosition(GUI.this.textPane.getDocument().getLength());
                             }
                         }
