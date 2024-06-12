@@ -50,14 +50,12 @@ public class LoadFile {
         double maxVelocity = jsonData.getDouble("Maximum Particle Velocity");
         double alpha = jsonData.getDouble("Intelligence Alpha");
         double beta = jsonData.getDouble("Intelligence Beta");
-        double seed = jsonData.getLong("seed");
 
         System.out.println("Swarm Size: " + swarmSize);
         System.out.println("Maximum Steering Force: " + maxForce);
         System.out.println("Maximum Particle Velocity: " + maxVelocity);
         System.out.println("Intelligence Alpha: " + alpha);
         System.out.println("Intelligence Beta: " + beta);
-        System.out.println("seed: " + seed);
 
         Particle.setMaxForce(maxForce);
         Particle.setMaxVel(maxVelocity);

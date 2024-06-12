@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class GUI extends JFrame{
     private JMenuItem menuItem1, menuItem2, menuItem3, menuItem4, menuItem5;
 
     //panels
-    private static JPanel topPanel, leftPanel, centerPanel;
+    private static JPanel topPanel, leftPanel, centerPanel, rightRightPanel;
 
     private static Function function;
     private static FunctionPanel rightPanel;
@@ -29,6 +30,7 @@ public class GUI extends JFrame{
     //left
     private TitledBorder paramsTitle;
     private JTextField swarmSizeText, maxForceText, maxVelText;
+    private JTextPane textPane;
     private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem, confirmParameters;
 
     //here
@@ -39,9 +41,6 @@ public class GUI extends JFrame{
     private JTextField par1, par2, par3;
     private boolean blockRunButton = false;
 
-    public long seed = System.currentTimeMillis();
-    public int loadingFromFile = 0;
-
     //do zmiany języków
     public void rebuildUI(){
         paramsTitle.setTitle(LanguageManager.getMessage("parameters"));
@@ -51,7 +50,7 @@ public class GUI extends JFrame{
         menuItem3.setText(LanguageManager.getMessage("exit"));
         settingsMenu.setText(LanguageManager.getMessage("settings"));
         menuItem4.setText(LanguageManager.getMessage("lang_settings"));
-        menuItem5.setText(LanguageManager.getMessage("display_settings"));
+        //menuItem5.setText(LanguageManager.getMessage("display_settings"));
         buttonImmitatingJMenuItem.setText(LanguageManager.getMessage("help"));
         swarmSizeText.setText(LanguageManager.getMessage("swarm_size_field"));
         labelSwarmSize.setText(LanguageManager.getMessage("swarm_size"));
@@ -71,6 +70,14 @@ public class GUI extends JFrame{
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
+
+        textPane = new JTextPane();
+        textPane.setText("Data"); // Example text
+        JScrollPane scrollPane = new JScrollPane(textPane);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        // Adding JTextPane to centerPanel
+        scrollPane.setBounds(600, 0, 220, 600); // Example bounds
 
         //menu
         menuBar = new JMenuBar();
@@ -92,7 +99,7 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 SaveFile fileSaveDialog = new SaveFile();
-                fileSaveDialog.saveSimToFile(GUI.this, FunctionPanel.getSwarmSize(),Particle.getMaxForce(),Particle.getMaxVel(),Particle.getAlfa(), Particle.getBeta(),GUI.this.seed);
+                fileSaveDialog.saveSimToFile(GUI.this, FunctionPanel.getSwarmSize(),Particle.getMaxForce(),Particle.getMaxVel(),Particle.getAlfa(), Particle.getBeta());
             }
         });
         menuItem3 = new JMenuItem(LanguageManager.getMessage("exit"));
@@ -313,45 +320,43 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(blockRunButton == false){
-                    // Particle.nullBest(); //tworzyło błąd w postaci cząstek nie słuchających się własnego LB, usuń
+//                    Particle.nullBest(); //tworzyło błąd w postaci cząstek nie słuchających się własnego LB, usuń
+
+                    Timer timer;
+                    timer = new Timer(100, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            // Update the display here
+                            rightPanel.repaint(); // Assuming rightPanel is where the simulation is drawn
+                            if(FunctionPanel.GB != null){
+                                // Append the new text to the existing text in textPane
+                                //String currentText = GUI.this.textPane.getText();
+                                //String newText = FunctionPanel.getGB();
+                                GUI.this.textPane.setText("GB: " + FunctionPanel.getGB() + "\n" + "X: " + FunctionPanel.getGBx() + "\n" + "Y: " + FunctionPanel.getGBy() + "\n");
+
+                                // Scroll to the bottom of the textPane
+                                GUI.this.textPane.setCaretPosition(GUI.this.textPane.getDocument().getLength());
+                            }
+                        }
+                    });
+                    timer.start();
+
                     rightPanel.nullBest();
                     rightPanel.start();
-
-                    // Check if loading from file
-                    if (loadingFromFile==1) {
-                        // Use the saved seed
-                        Random rand = new Random(seed);
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                for(int i=0; i<rightPanel.getSwarmSize(); i++){
-                                    rightPanel.addParticle(function, rand);
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            for(int i=0; i<rightPanel.getSwarmSize(); i++){
+                                rightPanel.addParticle(function);
+                                if(FunctionPanel.GB!=null){
+                                    GUI.this.textPane.setText(FunctionPanel.getGB());
                                 }
-
-                                Thread thread = new Thread(rightPanel);
-                                thread.start();
-                                GUI.this.loadingFromFile = 0;
                             }
-                        });
-                    } else {
-                        // Generate a new seed
-                        long seed = System.currentTimeMillis();
-                        Random rand = new Random(seed);
 
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                for(int i=0; i<rightPanel.getSwarmSize(); i++){
-                                    rightPanel.addParticle(function, rand);
-                                }
-
-                                Thread thread = new Thread(rightPanel);
-                                thread.start();
-                                GUI.this.seed = seed;
-                            }
-                        });
-                    }
-
+                            Thread thread = new Thread(rightPanel);
+                            thread.start();
+                        }
+                    });
                     blockRunButton = true;
                 }
             }
@@ -367,6 +372,8 @@ public class GUI extends JFrame{
                 blockRunButton = false;
             }
         });
+
+
 
         choosePreset = new JButton(LanguageManager.getMessage("preset"));
         choosePreset.setBounds(10, 495, 160, 40);
@@ -423,6 +430,8 @@ public class GUI extends JFrame{
         });
 
 
+
+
         leftPanel.add(runSim);
         leftPanel.add(stopSim);
         leftPanel.add(choosePreset);
@@ -437,6 +446,7 @@ public class GUI extends JFrame{
 
         //Center panel
         centerPanel = new JPanel();
+        centerPanel.add(scrollPane);
         this.add(centerPanel, BorderLayout.CENTER);
 //        centerPanel.setBackground(Color.white);
 //        centerPanel.setLayout(new GridLayout(1,1));

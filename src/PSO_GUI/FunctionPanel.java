@@ -2,12 +2,10 @@
 package PSO_GUI;
 
 import javax.swing.*;
-import javax.tools.Tool;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class FunctionPanel extends JPanel implements Runnable{
     private BufferedImage imageOfFunction;
@@ -16,11 +14,13 @@ public class FunctionPanel extends JPanel implements Runnable{
     static Best GB = null;
 //    static Best GB = null;
     static int swarmSize = 200;
-    Random rand;
 
     public static void nullBest(){
         GB = null;
     }
+    public static String getGB(){return Double.toString(GB.val);}
+    public static String getGBx(){return Double.toString(GB.pos.x);}
+    public static String getGBy(){return Double.toString(GB.pos.y);}
 
     public static void setSwarmSize(int n){
         swarmSize = n;
@@ -40,8 +40,8 @@ public class FunctionPanel extends JPanel implements Runnable{
         repaint();
     }
 
-    public void addParticle(Function f, Random rand){
-        Particle p = new Particle(f, rand.nextInt()*(f.xMax-f.xMin)+f.xMin, rand.nextInt()*(f.yMax-f.yMin)+f.yMin);
+    public void addParticle(Function f){
+        Particle p = new Particle(f, Math.random()*(f.xMax-f.xMin)+f.xMin, Math.random()*(f.yMax-f.yMin)+f.yMin);
 //        Particle p = new Particle(f, Math.random()*590, Math.random()*590);
         particles.add(p);
     }
