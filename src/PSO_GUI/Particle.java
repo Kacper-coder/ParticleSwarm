@@ -20,7 +20,7 @@ public class Particle {
     public Particle(Function func, double x, double y){
         f = func;
         pos = new Vector(x, y);
-        vel = new Vector(2*Math.random()-1, 2*Math.random()-1);
+        vel = new Vector(2*Utility.getRandom()-1, 2*Utility.getRandom()-1);
         vel.setLength(maxVel);
         acc = new Vector(0, 0);
 

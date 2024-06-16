@@ -41,7 +41,7 @@ public class FunctionPanel extends JPanel implements Runnable{
     }
 
     public void addParticle(Function f){
-        Particle p = new Particle(f, Math.random()*(f.xMax-f.xMin)+f.xMin, Math.random()*(f.yMax-f.yMin)+f.yMin);
+        Particle p = new Particle(f, Utility.getRandom()*(f.xMax-f.xMin)+f.xMin, Utility.getRandom()*(f.yMax-f.yMin)+f.yMin);
 //        Particle p = new Particle(f, Math.random()*590, Math.random()*590);
         particles.add(p);
     }
@@ -75,7 +75,7 @@ public class FunctionPanel extends JPanel implements Runnable{
                         GB.val = p.LB.val;
                         GB.pos.x = p.LB.pos.x;
                         GB.pos.y = p.LB.pos.y;
-                        System.out.println("GB: " + GB.val);
+//                        System.out.println("GB: " + GB.val);
                     }
                 }else{
                     GB = new Best(p.LB.pos, p.LB.val);

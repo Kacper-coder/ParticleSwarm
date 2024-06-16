@@ -29,7 +29,7 @@ public class GUI extends JFrame{
 
     //left
     private TitledBorder paramsTitle;
-    private JTextField swarmSizeText, maxForceText, maxVelText;
+    private JTextField swarmSizeText, maxForceText, maxVelText, seedField;
     private JTextPane textPane;
     private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem, confirmParameters;
 
@@ -284,7 +284,6 @@ public class GUI extends JFrame{
                         blockRunButton = true;
                     }
                 }
-
                 //trzeba wziąć wartość ze slidera, tylko wartość slidera sliderIntelligence ciągle pokazuje 0
                 //rozwiązanie - dzielenie sliderIntelligence.getValue() przez 100 daje 0
                 double value = sliderIntelligence.getValue();
@@ -312,6 +311,9 @@ public class GUI extends JFrame{
             }
         });
         confirmParameters.setBounds(5, 350+leftPanel.getHeight()/2, 250,20);
+        seedField = new JTextField("42");
+        seedField.setBounds(5, 375+leftPanel.getHeight()/2, 100,20);
+        leftPanel.add(seedField);
         leftPanel.add(confirmParameters);
 
         runSim = new JButton(LanguageManager.getMessage("run"));
@@ -320,6 +322,17 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(blockRunButton == false){
+                    double seed;
+                    if(seedField.getText().isEmpty()){
+                        seed = System.currentTimeMillis();
+                    }else{
+                        try{
+                            seed = Double.parseDouble(seedField.getText());
+                        }catch (NumberFormatException ex){
+                            seed = 42;
+                        }
+                    }
+                    Utility.initRandom((long)seed);
 //                    Particle.nullBest(); //tworzyło błąd w postaci cząstek nie słuchających się własnego LB, usuń
 
                     Timer timer;
@@ -328,7 +341,7 @@ public class GUI extends JFrame{
                         public void actionPerformed(ActionEvent e) {
                             rightPanel.repaint(); // Assuming rightPanel is where the simulation is drawn
                             if(FunctionPanel.GB != null){
-                                //String currentText = GUI.this.textPane.getText();
+                                //String currentText = GUI.this.t   extPane.getText();
                                 //String newText = FunctionPanel.getGB();
                                 GUI.this.textPane.setText("GB: " + FunctionPanel.getGB() + "\n" + "X: " + FunctionPanel.getGBx() + "\n" + "Y: " + FunctionPanel.getGBy() + "\n");
 
@@ -367,6 +380,7 @@ public class GUI extends JFrame{
                 rightPanel.deleteParticles();
                 rightPanel.stop();
                 blockRunButton = false;
+//                timer.stop();
             }
         });
 
