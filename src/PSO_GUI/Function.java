@@ -33,6 +33,8 @@ public class Function{
         create();
     }
 
+
+
     public int W, H;
     double xMax, xMin, yMax, yMin, vMin, vMax;
 

@@ -29,8 +29,9 @@ public class GUI extends JFrame{
 
     //left
     private TitledBorder paramsTitle;
-    private JTextField swarmSizeText, maxForceText, maxVelText, seedField;
-    private JTextPane textPane;
+    private JTextField swarmSizeText, maxForceText, maxVelText;
+    public static JTextField seedField;
+    public static JTextPane textPane;
     private JButton runSim, stopSim, choosePreset, buttonImmitatingJMenuItem, confirmParameters;
 
     //here
@@ -89,6 +90,14 @@ public class GUI extends JFrame{
                 LoadFile fileSelectionDialog = new LoadFile();
                 try {
                     fileSelectionDialog.loadFile(GUI.this);
+                    swarmSizeText.setText(Integer.toString(FunctionPanel.getSwarmSize()));
+                    sliderIntelligence.setValue((int)Particle.getAlfa());
+                    labelAlfa.setText(Double.toString(Particle.getAlfa()));
+                    labelBeta.setText(Double.toString(Particle.getBeta()));
+                    sliderForce.setValue((int)(Particle.getMaxForce() * Math.pow(10, 5)));
+                    sliderVel.setValue((int)(Particle.getMaxVel()*Math.pow(10,2)));
+                    maxForceText.setText(Double.toString(Particle.getMaxForce() * Math.pow(10, 5)));
+                    maxVelText.setText(Double.toString(Particle.getMaxVel()*Math.pow(10,2)));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -99,7 +108,7 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 SaveFile fileSaveDialog = new SaveFile();
-                fileSaveDialog.saveSimToFile(GUI.this, FunctionPanel.getSwarmSize(),Particle.getMaxForce(),Particle.getMaxVel(),Particle.getAlfa(), Particle.getBeta());
+                fileSaveDialog.saveSimToFile(GUI.this, FunctionPanel.getSwarmSize(),Particle.getMaxForce(),Particle.getMaxVel(),Particle.getAlfa(), Particle.getBeta(), Double.parseDouble(seedField.getText()));
             }
         });
         menuItem3 = new JMenuItem(LanguageManager.getMessage("exit"));
@@ -177,14 +186,16 @@ public class GUI extends JFrame{
                 if(swarmSizeText.getText().isEmpty()){
                     swarmSizeText.setText(LanguageManager.getMessage("swarm_size_field"));
                 }
-//                else{
-//                    try{
-//                        rightPanel.setSwarmSize(Integer.parseInt(swarmSizeText.getText()));
-//                        blockRunButton = false;
-//                    }catch (NumberFormatException ex){
-//                        System.out.println("Entered text is not an integer: " + swarmSizeText.getText());
-//                        blockRunButton = true;
-//                    }
+//                else {
+//            try {
+//                int swarmSize = Integer.parseInt(swarmSizeText.getText());
+//                rightPanel.setSwarmSize(swarmSize);
+//                blockRunButton = false;
+//            } catch (NumberFormatException ex) {
+//                JOptionPane.showMessageDialog(null, "Entered text is not an integer: " + swarmSizeText.getText(), "Error", JOptionPane.ERROR_MESSAGE);
+//                swarmSizeText.setText(LanguageManager.getMessage("swarm_size_field")); // Reset text field to default message
+//                blockRunButton = true;
+//            }
 //                }
             }
         });
@@ -211,7 +222,7 @@ public class GUI extends JFrame{
 
 
 
-        sliderForce = new JSlider(JSlider.HORIZONTAL, 0, 50, 1);
+        sliderForce = new JSlider(JSlider.HORIZONTAL, 0, 3, 1);
         sliderForce.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -226,7 +237,7 @@ public class GUI extends JFrame{
         sliderForce.setBounds(5, 100+leftPanel.getHeight()/2, 160,50);
         leftPanel.add(sliderForce);
 
-        sliderVel = new JSlider(JSlider.HORIZONTAL, 0, 50, 1);
+        sliderVel = new JSlider(JSlider.HORIZONTAL, 0, 3, 1);
         sliderVel.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -292,6 +303,7 @@ public class GUI extends JFrame{
 
                 if (Double.parseDouble(maxForceText.getText())*(1e-5) < (sliderForce.getValue()*(1e-5))||Double.parseDouble(maxForceText.getText())*(1e-5)>(sliderForce.getValue()*(1e-5))){
                     Particle.setMaxForce((Double.parseDouble((maxForceText.getText())) * (1e-5)));
+                    sliderForce.setValue((int)(Double.parseDouble(maxForceText.getText())));
                     System.out.println((Double.parseDouble((maxForceText.getText())) * (1e-5)));
                 }else{
                     Particle.setMaxForce((sliderForce.getValue()*(1e-5)));
@@ -300,6 +312,7 @@ public class GUI extends JFrame{
 
                 if (Double.parseDouble(maxVelText.getText())* 1e-2 < sliderVel.getValue() * 1e-2 || Double.parseDouble(maxVelText.getText())* 1e-2 > sliderVel.getValue() * 1e-2) {
                     Particle.setMaxVel((Double.parseDouble(maxVelText.getText()))* 1e-2);
+                    sliderVel.setValue((int)(Double.parseDouble(maxVelText.getText())));
                     System.out.println(Double.parseDouble(maxVelText.getText())* 1e-2);
                 } else {
                     Particle.setMaxVel(sliderVel.getValue() * 1e-2);
@@ -328,28 +341,13 @@ public class GUI extends JFrame{
                     }else{
                         try{
                             seed = Double.parseDouble(seedField.getText());
+                            System.out.println("seed set");
                         }catch (NumberFormatException ex){
                             seed = 42;
                         }
                     }
                     Utility.initRandom((long)seed);
 //                    Particle.nullBest(); //tworzyło błąd w postaci cząstek nie słuchających się własnego LB, usuń
-
-                    Timer timer;
-                    timer = new Timer(100, new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            rightPanel.repaint(); // Assuming rightPanel is where the simulation is drawn
-                            if(FunctionPanel.GB != null){
-                                //String currentText = GUI.this.t   extPane.getText();
-                                //String newText = FunctionPanel.getGB();
-                                GUI.this.textPane.setText("GB: " + FunctionPanel.getGB() + "\n" + "X: " + FunctionPanel.getGBx() + "\n" + "Y: " + FunctionPanel.getGBy() + "\n");
-
-                                GUI.this.textPane.setCaretPosition(GUI.this.textPane.getDocument().getLength());
-                            }
-                        }
-                    });
-                    timer.start();
 
                     rightPanel.nullBest();
                     rightPanel.start();

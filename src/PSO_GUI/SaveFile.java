@@ -11,13 +11,13 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class SaveFile {
-    public File saveSimToFile(Component parentComponent, int swarmSize, double maxForce, double maxVelocity, double alpha, double beta){
+    public File saveSimToFile(Component parentComponent, int swarmSize, double maxForce, double maxVelocity, double alpha, double beta, double seed){
         JFileChooser fileChooser = new JFileChooser();
         int select = fileChooser.showSaveDialog(parentComponent);
 
         if(select == JFileChooser.APPROVE_OPTION){
             File filePath = fileChooser.getSelectedFile();
-            JSONObject jsonData = parseData(swarmSize, maxForce, maxVelocity, alpha, beta);
+            JSONObject jsonData = parseData(swarmSize, maxForce, maxVelocity, alpha, beta, seed);
 
             try( FileWriter writer = new FileWriter(filePath)) {
                 writer.write(jsonData.toString());
@@ -30,7 +30,7 @@ public class SaveFile {
         return null;
     };
 
-    public JSONObject parseData(int swarmSize, double maxForce, double maxVelocity, double alpha, double beta){
+    public JSONObject parseData(int swarmSize, double maxForce, double maxVelocity, double alpha, double beta, double seed){
         JSONObject jsonData = new JSONObject();
 
         jsonData.put("Swarm Size", swarmSize);
@@ -38,6 +38,7 @@ public class SaveFile {
         jsonData.put("Maximum Particle Velocity", maxVelocity);
         jsonData.put("Intelligence Alpha", alpha);
         jsonData.put("Intelligence Beta", beta);
+        jsonData.put("Seed",seed);
 
 //        JSONArray GBarray = new JSONArray();
 //        for(double value : GB){
